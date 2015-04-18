@@ -15,6 +15,14 @@ public class EnemyController : MonoBehaviour {
         transform.Translate(Vector3.forward * speed);
 	}
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Deathbox")
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     private void fire()
     {
 
