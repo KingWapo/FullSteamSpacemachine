@@ -30,7 +30,7 @@ public class Menu : MonoBehaviour {
     public Color btn_selected = Color.green;
     public Color btn_unavailable = Color.red;
     public Color btn_allowed = Color.white;
-    public Color btn_unallowed = Color.gray;
+    public Color btn_unallowed = new Color(.75f, .75f, .75f);
 
 	// Use this for initialization
 	void Start () {
@@ -124,27 +124,27 @@ public class Menu : MonoBehaviour {
                 gameManager.aimType = AimType.Controller_Aim;
                 UpdateAimButtons(BtnType.Unallowed, BtnType.Selected, BtnType.Unallowed);
                 UpdateMoveButtons(BtnType.Unallowed, BtnType.Allowed, BtnType.Unallowed);
-                break;
+                goto case 'E';
             case 'C':
                 gameManager.aimType = AimType.Mouse_Aim;
                 UpdateAimButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Selected);
                 UpdateMoveButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Allowed);
-                break;
+                goto case 'F';
             case 'D':
                 gameManager.moveType = MoveType.Joystick_Move;
                 UpdateMoveButtons(BtnType.Selected, BtnType.Unallowed, BtnType.Unallowed);
                 UpdateShootButtons(BtnType.Allowed, BtnType.Unallowed, BtnType.Unallowed);
-                break;
+                goto case 'G';
             case 'E':
                 gameManager.moveType = MoveType.Controller_Move;
                 UpdateMoveButtons(BtnType.Unallowed, BtnType.Selected, BtnType.Unallowed);
                 UpdateShootButtons(BtnType.Unallowed, BtnType.Allowed, BtnType.Unallowed);
-                break;
+                goto case 'H';
             case 'F':
                 gameManager.moveType = MoveType.Keyboard_Move;
                 UpdateMoveButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Selected);
                 UpdateShootButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Allowed);
-                break;
+                goto case 'I';
             case 'G':
                 gameManager.shootType = ShootType.Button_Shoot;
                 UpdateShootButtons(BtnType.Selected, BtnType.Unallowed, BtnType.Unallowed);
@@ -166,31 +166,19 @@ public class Menu : MonoBehaviour {
     }
 
     private void UpdateAimButtons(BtnType a_oc, BtnType a_co, BtnType a_mo) {
-        if (Ovr.Hmd.Detect() > 0) {
-            UpdateButton(aim_oculus, a_oc);
-        } else {
-            UpdateButton(aim_oculus, BtnType.Unavailable);
-        }
+        UpdateButton(aim_oculus, a_oc);
         UpdateButton(aim_controller, a_co);
         UpdateButton(aim_mouse, a_mo);
     }
 
     private void UpdateMoveButtons(BtnType m_jo, BtnType m_co, BtnType m_ke) {
-        if (Ovr.Hmd.Detect() > 0) {
-            UpdateButton(move_joystick, m_jo);
-        } else {
-            UpdateButton(move_joystick, BtnType.Unavailable);
-        }
+        UpdateButton(move_joystick, m_jo);
         UpdateButton(move_controller, m_co);
         UpdateButton(move_keyboard, m_ke);
     }
 
     private void UpdateShootButtons(BtnType s_bu, BtnType s_co, BtnType s_ke) {
-        if (Ovr.Hmd.Detect() > 0) {
-            UpdateButton(shoot_button, s_bu);
-        } else {
-            UpdateButton(shoot_button, BtnType.Unavailable);
-        }
+        UpdateButton(shoot_button, s_bu);
         UpdateButton(shoot_controller, s_co);
         UpdateButton(shoot_keyboard, s_ke);
     }
