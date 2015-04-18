@@ -1,0 +1,378 @@
+fileFormatVersion: 2
+guid: 7745bda7e46d5446bb9e3fb277052060
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Controls
+    100002: Gear_01
+    100004: Gear_02
+    100006: joint1
+    100008: joint2
+    100010: joint3
+    100012: Joints
+    100014: Left_Gun
+    100016: Main_Cabin
+    100018: nurbsCircle2
+    100020: nurbsCircle3
+    100022: //RootNode
+    100024: Right_Gun
+    100026: SpaceShipMesh
+    400000: Controls
+    400002: Gear_01
+    400004: Gear_02
+    400006: joint1
+    400008: joint2
+    400010: joint3
+    400012: Joints
+    400014: Left_Gun
+    400016: Main_Cabin
+    400018: nurbsCircle2
+    400020: nurbsCircle3
+    400022: //RootNode
+    400024: Right_Gun
+    400026: SpaceShipMesh
+    4300000: Gear_01
+    4300002: Gear_02
+    4300004: Left_Gun
+    4300006: Right_Gun
+    4300008: Main_Cabin
+    7400000: GearRot_Normal
+    7400002: GearRot_SteamPow
+    7400004: Move_Right_End
+    7400006: Move_Right
+    7400008: Move_Right
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: Gear_01
+    13700002: Gear_02
+    13700004: Left_Gun
+    13700006: Main_Cabin
+    13700008: Right_Gun
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: GearRot_Normal
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 90
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Controls
+        weight: 1
+      - path: Controls/Joints
+        weight: 1
+      - path: Controls/Joints/joint3
+        weight: 1
+      - path: Controls/Joints/joint3/joint1
+        weight: 1
+      - path: Controls/Joints/joint3/joint2
+        weight: 1
+      - path: Controls/nurbsCircle2
+        weight: 1
+      - path: Controls/nurbsCircle3
+        weight: 1
+      - path: Controls/SpaceShipMesh
+        weight: 1
+      - path: Controls/SpaceShipMesh/Gear_01
+        weight: 1
+      - path: Controls/SpaceShipMesh/Gear_02
+        weight: 1
+      - path: Controls/SpaceShipMesh/Left_Gun
+        weight: 1
+      - path: Controls/SpaceShipMesh/Main_Cabin
+        weight: 1
+      - path: Controls/SpaceShipMesh/Right_Gun
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: GearRot_SteamPow
+      takeName: Take 001
+      firstFrame: 92
+      lastFrame: 181
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Controls
+        weight: 1
+      - path: Controls/Joints
+        weight: 1
+      - path: Controls/Joints/joint3
+        weight: 1
+      - path: Controls/Joints/joint3/joint1
+        weight: 1
+      - path: Controls/Joints/joint3/joint2
+        weight: 1
+      - path: Controls/nurbsCircle2
+        weight: 1
+      - path: Controls/nurbsCircle3
+        weight: 1
+      - path: Controls/SpaceShipMesh
+        weight: 1
+      - path: Controls/SpaceShipMesh/Gear_01
+        weight: 1
+      - path: Controls/SpaceShipMesh/Gear_02
+        weight: 1
+      - path: Controls/SpaceShipMesh/Left_Gun
+        weight: 1
+      - path: Controls/SpaceShipMesh/Main_Cabin
+        weight: 1
+      - path: Controls/SpaceShipMesh/Right_Gun
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Move_Right_End
+      takeName: Take 001
+      firstFrame: 197
+      lastFrame: 215
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Controls
+        weight: 1
+      - path: Controls/Joints
+        weight: 1
+      - path: Controls/Joints/joint3
+        weight: 1
+      - path: Controls/Joints/joint3/joint1
+        weight: 1
+      - path: Controls/Joints/joint3/joint2
+        weight: 1
+      - path: Controls/nurbsCircle2
+        weight: 1
+      - path: Controls/nurbsCircle3
+        weight: 1
+      - path: Controls/SpaceShipMesh
+        weight: 1
+      - path: Controls/SpaceShipMesh/Gear_01
+        weight: 1
+      - path: Controls/SpaceShipMesh/Gear_02
+        weight: 1
+      - path: Controls/SpaceShipMesh/Left_Gun
+        weight: 1
+      - path: Controls/SpaceShipMesh/Main_Cabin
+        weight: 1
+      - path: Controls/SpaceShipMesh/Right_Gun
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Move_Right
+      takeName: Take 001
+      firstFrame: 182
+      lastFrame: 196
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Controls
+        weight: 1
+      - path: Controls/Joints
+        weight: 1
+      - path: Controls/Joints/joint3
+        weight: 1
+      - path: Controls/Joints/joint3/joint1
+        weight: 1
+      - path: Controls/Joints/joint3/joint2
+        weight: 1
+      - path: Controls/nurbsCircle2
+        weight: 1
+      - path: Controls/nurbsCircle3
+        weight: 1
+      - path: Controls/SpaceShipMesh
+        weight: 1
+      - path: Controls/SpaceShipMesh/Gear_01
+        weight: 1
+      - path: Controls/SpaceShipMesh/Gear_02
+        weight: 1
+      - path: Controls/SpaceShipMesh/Left_Gun
+        weight: 1
+      - path: Controls/SpaceShipMesh/Main_Cabin
+        weight: 1
+      - path: Controls/SpaceShipMesh/Right_Gun
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Move_Right
+      takeName: Take 001
+      firstFrame: 195
+      lastFrame: 195.100006
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Controls
+        weight: 1
+      - path: Controls/Joints
+        weight: 1
+      - path: Controls/Joints/joint3
+        weight: 1
+      - path: Controls/Joints/joint3/joint1
+        weight: 1
+      - path: Controls/Joints/joint3/joint2
+        weight: 1
+      - path: Controls/nurbsCircle2
+        weight: 1
+      - path: Controls/nurbsCircle3
+        weight: 1
+      - path: Controls/SpaceShipMesh
+        weight: 1
+      - path: Controls/SpaceShipMesh/Gear_01
+        weight: 1
+      - path: Controls/SpaceShipMesh/Gear_02
+        weight: 1
+      - path: Controls/SpaceShipMesh/Left_Gun
+        weight: 1
+      - path: Controls/SpaceShipMesh/Main_Cabin
+        weight: 1
+      - path: Controls/SpaceShipMesh/Right_Gun
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
