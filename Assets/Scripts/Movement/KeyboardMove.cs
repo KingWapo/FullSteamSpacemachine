@@ -1,20 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class KeyboardMove : MonoBehaviour {
-
-    private MoveController moveController;
+public class KeyboardMove : MoveController {
 
 	// Use this for initialization
 	void Start () {
-        moveController = GetComponent<MoveController>();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        float axisX = Input.GetAxis("horizontal");
-        float axisY = Input.GetAxis("vertical");
+        float axisX = Input.GetAxis("Horizontal");
+        float axisY = Input.GetAxis("Vertical");
 
-        moveController.Move(axisX, axisY);
+        Move(axisX, axisY);
 	}
 }

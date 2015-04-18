@@ -3,17 +3,7 @@ using System.Collections;
 
 public class MoveController : MonoBehaviour {
 
-    public float speed;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public float speed = 5;
 
     // -1 to 1 for each axis
     // call this to move character
