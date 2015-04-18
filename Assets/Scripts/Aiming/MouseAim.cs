@@ -9,5 +9,9 @@ public class MouseAim : AimController {
         float axisY = -Input.GetAxis("Mouse Y");
 
         Aim(axisX, axisY);
+
+        if (shooter.IsShooting()) {
+            shooter.StandardShoot(GetPos());
+        }
     }
 }

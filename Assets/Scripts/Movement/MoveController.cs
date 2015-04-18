@@ -10,11 +10,11 @@ public class MoveController : MonoBehaviour {
 
     private float rotBound = 20.0f;
 
-    private Animation animation;
+    //private Animation animation;
 
     // Use this for initialization
     void Start() {
-        animation = gameObject.GetComponentInChildren<Animation>();
+        //animation = gameObject.GetComponentInChildren<Animation>();
     }
 
     // -1 to 1 for each axis

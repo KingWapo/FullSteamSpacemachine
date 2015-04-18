@@ -7,16 +7,16 @@ public enum MoveType {
     Joystick_Move
 };
 
-public enum AimType {
-    Controller_Aim,
-    Mouse_Aim,
-    Oculus_Aim
-};
-
 public enum ShootType {
     Controller_Shoot,
     Keyboard_Shoot,
     Button_Shoot
+};
+
+public enum AimType {
+    Controller_Aim,
+    Mouse_Aim,
+    Oculus_Aim
 };
 
 public class GameManager : MonoBehaviour {
@@ -49,23 +49,6 @@ public class GameManager : MonoBehaviour {
                 break;
         }
 
-        switch (aimType) {
-            case AimType.Controller_Aim:
-                ship.AddComponent<Controller360Aim>();
-                break;
-            case AimType.Mouse_Aim:
-                ship.AddComponent<MouseAim>();
-                break;
-            case AimType.Oculus_Aim:
-                Camera.main.enabled = false;
-                Instantiate(oculusController, cameraPos, Quaternion.identity);
-
-                ship.AddComponent<OculusAim>();
-                break;
-        }
-
-        aimTypeStatic = aimType;
-
         ShootController shooter = null;
 
         switch (shootType) {
@@ -83,6 +66,24 @@ public class GameManager : MonoBehaviour {
         if (shooter != null) {
             shooter.projectilePre = projectile;
         }
+
+        switch (aimType) {
+            case AimType.Controller_Aim:
+                ship.AddComponent<Controller360Aim>();
+                break;
+            case AimType.Mouse_Aim:
+                ship.AddComponent<MouseAim>();
+                break;
+            case AimType.Oculus_Aim:
+                Camera.main.enabled = false;
+                Instantiate(oculusController, cameraPos, Quaternion.identity);
+
+                OculusAim oculus = ship.AddComponent<OculusAim>();
+                oculus.camera = oculusController;
+                break;
+        }
+
+        aimTypeStatic = aimType;
 	}
 	
 	// Update is called once per frame

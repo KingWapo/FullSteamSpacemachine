@@ -16,9 +16,12 @@ public class AimController : MonoBehaviour {
 
     private Sprite crosshair;
 
+    protected ShootController shooter;
+
     // Use this for initialization
     void Start() {
         crosshair = (Sprite)Resources.LoadAssetAtPath("Assets/Imports/Crosshair.png", typeof(Sprite));
+        shooter = GetComponent<ShootController>();
     }
 
     // -1 to 1 for each axis

@@ -9,5 +9,9 @@ public class Controller360Aim : AimController {
         float axisY = Input.GetAxis("360 Right Vertical");
 
         Aim(axisX, axisY);
+
+        if (shooter.IsShooting()) {
+            shooter.StandardShoot(GetPos());
+        }
     }
 }
