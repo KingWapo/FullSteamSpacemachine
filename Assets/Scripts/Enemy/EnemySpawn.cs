@@ -41,7 +41,9 @@ public class EnemySpawn : MonoBehaviour {
         pos += new Vector3(x, y, z);
         enemy.transform.position = pos;
         enemy.transform.rotation = transform.rotation;
-        enemy.GetComponent<EnemyController>().SetPath(EnemyController.Path.Spiral);
-        enemy.GetComponent<EnemyController>().attack = EnemyController.Attack.SlowAim;
+        float num = Random.Range(0, (int)EnemyController.Path.Max);
+        enemy.GetComponent<EnemyController>().SetPath((EnemyController.Path)num);
+        num = Random.Range(0, (int)EnemyController.Attack.Max);
+        enemy.GetComponent<EnemyController>().attack = (EnemyController.Attack)num;
     }
 }

@@ -3,23 +3,29 @@ using System.Collections;
 
 public class EnemyController : MonoBehaviour {
     // Enums to determine behavior
-    public enum Path { Straight, ZigZag, Spiral, Chase }
-    public enum Attack { QuickStraight, SlowAim }
+    public enum Path { Straight, ZigZag, Spiral, Chase, Max }
+    public enum Attack { QuickStraight, SlowAim, Max }
 
     public Path path;
     public Attack attack;
 
     public GameObject ProjectilePrefab;
 
+    private float t;
+
     private float speed;
     private float shotCooldown;
+
     private float spiralRadius;
-    private float theta;
     private Vector2 centerXY;
+
+    private float slope;
+    private float direction;
+    private float length;
+
     private Transform target;
 
     // Debugging
-    private Vector3 forward;
 
 	// Use this for initialization
 	void Start () {
@@ -52,12 +58,20 @@ public class EnemyController : MonoBehaviour {
 
         switch (myPath)
         {
-            case Path.Straight:
-                break;
             case Path.Spiral:
                 spiralRadius = Random.Range(1.0f, 10.0f);
-                theta = 0;
+                t = 0;
                 centerXY = new Vector2(transform.position.x, transform.position.y);
+                break;
+            case Path.ZigZag:
+                centerXY = new Vector2(transform.position.x, transform.position.y);
+                t = 0;
+                direction = 1;
+                float rotation = Random.Range(0.0f, 2 * Mathf.PI);
+                float rise = Mathf.Sin(rotation);
+                float run = Mathf.Cos(rotation);
+                slope = rise / run;
+                length = Random.Range(1.0f, 10.0f);
                 break;
         }
     }
@@ -66,31 +80,53 @@ public class EnemyController : MonoBehaviour {
     {
         switch(path)
         {
+            case Path.Chase:
+                chasePath();
+                break;
             case Path.Straight:
                 transform.Translate(Vector3.forward * speed);
                 break;
             case Path.Spiral:
                 spiralPath();
                 break;
+            case Path.ZigZag:
+                zigZagPath();
+                break;
         }
+    }
+
+    private void chasePath()
+    {
+        transform.LookAt(target);
+        transform.Translate(Vector3.forward * speed * 4);
     }
 
     private void spiralPath()
     {
-        theta = (theta + speed * 0.75f) % 6.283185307179586476925286766559f;
-        forward = Vector3.forward;
+        t = (t + speed * 0.75f) % 6.283185307179586476925286766559f;
         Vector3 pos = transform.position + transform.forward * speed;
-        pos.x = centerXY.x + spiralRadius * Mathf.Cos(theta);
-        pos.y = centerXY.y + spiralRadius * Mathf.Sin(theta);
-        /*
-        float x = centerXY.x + Mathf.Cos(theta);
-        float y = centerXY.y + Mathf.Sin(theta);
-        float z = transform.position.z + (Vector3.forward * speed).z;
+        pos.x = centerXY.x + spiralRadius * Mathf.Cos(t);
+        pos.y = centerXY.y + spiralRadius * Mathf.Sin(t);
 
-        Vector3 pos = new Vector3(x, y, -z);*/
-
-        transform.transform.position = pos;
+        transform.position = pos;
     }
+
+    private void zigZagPath()
+    {
+        if (Mathf.Abs(t) >= length)
+        {
+            direction *= -1;
+        }
+
+        t += direction * speed;
+
+        Vector3 pos = transform.position + transform.forward * speed;
+        pos.x = centerXY.x + t;
+        pos.y = centerXY.y + slope * t;
+
+        transform.position = pos;
+    }
+    
 
     private void fire()
     {
