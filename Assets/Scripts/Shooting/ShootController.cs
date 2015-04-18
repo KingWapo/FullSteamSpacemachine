@@ -9,6 +9,9 @@ public class ShootController : MonoBehaviour {
 
     public GameObject projectilePre;
 
+    private Transform rTurret;
+    private Transform lTurret;
+
     protected bool Debugging = false;
 
     // Keep track of powerups
@@ -20,6 +23,7 @@ public class ShootController : MonoBehaviour {
     // Firerate powerup
     private int cooldownMax = 18;
     private int cooldown = 0;
+    private int currTurret = 0;
 
     // Debugging
     protected Ray ray;
@@ -28,6 +32,8 @@ public class ShootController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         pVariables = GetComponent<PlayerVariables>();
+        rTurret = transform.FindChild("TurretR");
+        lTurret = transform.FindChild("TurretL");
 	}
 
     public void StandardShoot(Vector2 pos) {
@@ -69,38 +75,47 @@ public class ShootController : MonoBehaviour {
     }
 
     private void Fire() {
-        if (cooldown <= 0)
-        {
-            ProduceProjectile();
+        if (cooldown <= 0) {
+
+            Transform turret;
+            if (currTurret == 0) {
+                turret = lTurret;
+            } else {
+                turret = rTurret;
+            }
+
+            currTurret = (currTurret + 1) % 2;
+
+            ProduceProjectile(turret);
 
             switch (pVariables.SpreadShotLevel)
             {
                 case 5:
-                    GameObject proj7 = ProduceProjectile();
+                    GameObject proj7 = ProduceProjectile(turret);
                     proj7.transform.Rotate(transform.up, spreadAngle);
                     proj7.transform.Rotate(transform.right, -spreadAngle);
-                    GameObject proj8 = ProduceProjectile();
+                    GameObject proj8 = ProduceProjectile(turret);
                     proj8.transform.Rotate(transform.up, -spreadAngle);
                     proj8.transform.Rotate(transform.right, spreadAngle);
                     goto case 4;
                 case 4:
-                    GameObject proj5 = ProduceProjectile();
+                    GameObject proj5 = ProduceProjectile(turret);
                     proj5.transform.Rotate(transform.up, spreadAngle);
                     proj5.transform.Rotate(transform.right, spreadAngle);
-                    GameObject proj6 = ProduceProjectile();
+                    GameObject proj6 = ProduceProjectile(turret);
                     proj6.transform.Rotate(transform.up, -spreadAngle);
                     proj6.transform.Rotate(transform.right, -spreadAngle);
                     goto case 3;
                 case 3:
-                    GameObject proj3 = ProduceProjectile();
+                    GameObject proj3 = ProduceProjectile(turret);
                     proj3.transform.Rotate(transform.right, spreadAngle);
-                    GameObject proj4 = ProduceProjectile();
+                    GameObject proj4 = ProduceProjectile(turret);
                     proj4.transform.Rotate(transform.right, -spreadAngle);
                     goto case 2;
                 case 2:
-                    GameObject proj1 = ProduceProjectile();
+                    GameObject proj1 = ProduceProjectile(turret);
                     proj1.transform.Rotate(transform.up, spreadAngle);
-                    GameObject proj2 = ProduceProjectile();
+                    GameObject proj2 = ProduceProjectile(turret);
                     proj2.transform.Rotate(transform.up, -spreadAngle);
                     break;
             }
@@ -113,9 +128,9 @@ public class ShootController : MonoBehaviour {
         }
     }
 
-    private GameObject ProduceProjectile() {
+    private GameObject ProduceProjectile(Transform turret) {
         GameObject projectile = (GameObject)Instantiate(projectilePre);
-        projectile.transform.position = transform.position;
+        projectile.transform.position = turret.position;
         projectile.transform.LookAt(target);
         projectile.GetComponent<Projectile>().Speed = 2f;
         projectile.GetComponent<Projectile>().PlayerShot = true;
