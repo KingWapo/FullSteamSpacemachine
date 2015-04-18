@@ -94,7 +94,6 @@ public class PlayerVariables : MonoBehaviour {
         if (invTime > 0)
         {
             invTime--;
-            print(invTime);
         }
         if (mirrorTime > 0)
         {
@@ -200,7 +199,6 @@ public class PlayerVariables : MonoBehaviour {
 
     private void AddInvincibility()
     {
-        print("inv added");
         invTime = 600;
     }
 
