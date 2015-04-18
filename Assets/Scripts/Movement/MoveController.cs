@@ -10,6 +10,13 @@ public class MoveController : MonoBehaviour {
 
     private float rotBound = 20.0f;
 
+    private Animation animation;
+
+    // Use this for initialization
+    void Start() {
+        animation = gameObject.GetComponentInChildren<Animation>();
+    }
+
     // -1 to 1 for each axis
     // call this to move character
     public void Move(float axisX, float axisY) {
@@ -39,6 +46,12 @@ public class MoveController : MonoBehaviour {
         rotZ = rotZ > 180.0f ? rotZ - 360.0f : rotZ;
 
         if (Mathf.Abs(Mathf.Abs(newX) - boundX) > .1f && Mathf.Abs(axisX) > .1f) {
+            /*if (animation.isPlaying) {
+                animation.Play("Move_Right_Start");
+            }
+
+            animation.PlayQueued("Move_Right", QueueMode.CompleteOthers);*/
+
             rotZ = Mathf.Clamp(rotZ - axisX * 2.0f, -rotBound, rotBound);
         } else {
             if (Mathf.Abs(rotZ) > .01f) {
