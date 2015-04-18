@@ -25,6 +25,8 @@ public class Menu : MonoBehaviour {
     public Button shoot_controller;
     public Button shoot_keyboard;
 
+    public Button startGame;
+
     public GameManager gameManager;
 
     public Color btn_selected = Color.green;
@@ -109,6 +111,10 @@ public class Menu : MonoBehaviour {
         SetControl('I');
     }
 
+    public void StartGame() {
+        Application.LoadLevel("Gameplay");
+    }
+
     public void ResetControls() {
         SetControl('R');
     }
@@ -148,19 +154,23 @@ public class Menu : MonoBehaviour {
             case 'G':
                 gameManager.shootType = ShootType.Button_Shoot;
                 UpdateShootButtons(BtnType.Selected, BtnType.Unallowed, BtnType.Unallowed);
-                break;
+                goto case 'S';
             case 'H':
                 gameManager.shootType = ShootType.Controller_Shoot;
                 UpdateShootButtons(BtnType.Unallowed, BtnType.Selected, BtnType.Unallowed);
-                break;
+                goto case 'S';
             case 'I':
                 gameManager.shootType = ShootType.Keyboard_Shoot;
                 UpdateShootButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Selected);
-                break;
+                goto case 'S';
             case 'R':
                 UpdateAimButtons(BtnType.Allowed, BtnType.Allowed, BtnType.Allowed);
                 UpdateMoveButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Unallowed);
                 UpdateShootButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Unallowed);
+                startGame.interactable = false;
+                break;
+            case 'S':
+                startGame.interactable = true;
                 break;
         }
     }
