@@ -41,6 +41,10 @@ public class EnemyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (EndGame.End) 
+            OnDeath(false);
+
         if (!dead)
         {
             if (!target)
@@ -93,15 +97,18 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    public void OnDeath()
+    public void OnDeath(bool byProj)
     {
         if (!dead)
         {
-            target.gameObject.GetComponent<PlayerVariables>().Kill();
+            if (byProj)
+            {
+                target.gameObject.GetComponent<PlayerVariables>().Kill();
+            }
             dead = true;
             GetComponent<MeshRenderer>().enabled = false;
             peepee.Play();
-            if (Random.Range(0.0f, 100.0f) < EnemySpawn.PowerupSpawnFunc())
+            if (Random.Range(0.0f, 100.0f) < EnemySpawn.PowerupSpawnFunc() && byProj)
                 spawnPowerup();
         }
     }
@@ -192,7 +199,6 @@ public class EnemyController : MonoBehaviour {
         }
 
         pUp.transform.position = transform.position;
-        //print(pUp.GetComponent<PowerupBehavior>().PowerupType);
     }
 
     private void fire()

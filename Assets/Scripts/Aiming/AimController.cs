@@ -42,6 +42,9 @@ public class AimController : MonoBehaviour {
     }
 
     void OnGUI() {
-        GUI.Label(new Rect(posX - sightSize / 2, posY - sightSize / 2, sightSize, sightSize), crosshair.texture);
+        if (!EndGame.End)
+        {
+            GUI.Label(new Rect(posX - sightSize / 2, posY - sightSize / 2, sightSize, sightSize), crosshair.texture);
+        }
     }
 }

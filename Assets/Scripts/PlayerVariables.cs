@@ -15,6 +15,9 @@ public enum Powerup
 
 public class PlayerVariables : MonoBehaviour {
 
+    public ParticleSystem Explosion;
+    private bool dead;
+
 // Score variables
 
     public int Health;
@@ -25,6 +28,14 @@ public class PlayerVariables : MonoBehaviour {
 
     private Text scoreText;
     private int previousScore = 0;
+
+// Score text
+    public GameObject TextParent;
+    public Text ScoreText;
+    public Text KillsText;
+    public Text DamageDealtText;
+    public Text DamageTakenText;
+    public Text PowerupsCollectedText;
 
 // Powerup info
 
@@ -46,36 +57,58 @@ public class PlayerVariables : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        Cursor.visible = false;
         scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
+
+        TextParent = GameObject.FindGameObjectWithTag("FinalScore").gameObject;
+        ScoreText = TextParent.transform.GetChild(0).gameObject.GetComponent<Text>();
+        KillsText = GameObject.FindGameObjectWithTag("KillsText").GetComponent<Text>();
+        DamageDealtText = GameObject.FindGameObjectWithTag("DamageDealt").GetComponent<Text>();
+        DamageTakenText = GameObject.FindGameObjectWithTag("DamageTaken").GetComponent<Text>();
+        PowerupsCollectedText = GameObject.FindGameObjectWithTag("PowerupsCollected").GetComponent<Text>();
+
+        TextParent.SetActive(false);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Debugging)
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1)) AddPowerup(Powerup.LaserStrength);
-            if (Input.GetKeyDown(KeyCode.Alpha2)) AddPowerup(Powerup.SpreadShot);
-            if (Input.GetKeyDown(KeyCode.Alpha3)) AddPowerup(Powerup.FireRate);
-            if (Input.GetKeyDown(KeyCode.Alpha4)) AddPowerup(Powerup.BasicShield);
-            if (Input.GetKeyDown(KeyCode.Alpha5)) AddPowerup(Powerup.MirrorShield);
-            if (Input.GetKeyDown(KeyCode.Alpha6)) AddPowerup(Powerup.Invincibility);
-            if (Input.GetKeyDown(KeyCode.Alpha7)) AddPowerup(Powerup.Steam);
-        }
 
-        updateTimedPowerups();
+        if (EndGame.End)
+            onDeath();
 
-        if (previousScore < calcScore())
+        if (!dead)
         {
-            previousScore = (int)Mathf.Lerp(previousScore, calcScore(), Time.deltaTime);
+            if (Debugging)
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha1)) AddPowerup(Powerup.LaserStrength);
+                if (Input.GetKeyDown(KeyCode.Alpha2)) AddPowerup(Powerup.SpreadShot);
+                if (Input.GetKeyDown(KeyCode.Alpha3)) AddPowerup(Powerup.FireRate);
+                if (Input.GetKeyDown(KeyCode.Alpha4)) AddPowerup(Powerup.BasicShield);
+                if (Input.GetKeyDown(KeyCode.Alpha5)) AddPowerup(Powerup.MirrorShield);
+                if (Input.GetKeyDown(KeyCode.Alpha6)) AddPowerup(Powerup.Invincibility);
+                if (Input.GetKeyDown(KeyCode.Alpha7)) AddPowerup(Powerup.Steam);
+            }
+
+            updateTimedPowerups();
+
+            if (previousScore < calcScore())
+            {
+                previousScore = (int)Mathf.Lerp(previousScore, calcScore(), Time.deltaTime);
+            }
+            scoreText.text = "Score: " + previousScore;
+
+            if (Health <= 0)
+            {
+                EndGame.End = true;
+            }
         }
-        scoreText.text = "Score: " + previousScore;
 	}
 
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Enemy")
         {
-            col.gameObject.GetComponent<EnemyController>().OnDeath();
+            col.gameObject.GetComponent<EnemyController>().OnDeath(false);
             TakeDamage(30);
         }
     }
@@ -86,6 +119,23 @@ public class PlayerVariables : MonoBehaviour {
         {
             AddPowerup(other.gameObject.GetComponent<PowerupBehavior>().PowerupType);
             Destroy(other.gameObject);
+        }
+    }
+
+    private void onDeath()
+    {
+        if (!dead)
+        {
+            dead = true;
+            transform.GetChild(0).gameObject.SetActive(false);
+            Explosion.Play();
+            TextParent.SetActive(true);
+            scoreText.text = "";
+            ScoreText.text = "" + calcScore();
+            KillsText.text = "" + Kills;
+            DamageDealtText.text = "" + DamageDealt;
+            DamageTakenText.text = "" + DamageTaken;
+            PowerupsCollectedText.text = "" + PowerupCount;
         }
     }
 
@@ -103,6 +153,7 @@ public class PlayerVariables : MonoBehaviour {
 
     public bool TakeDamage(int damage)
     {
+        DamageTaken += damage;
         if (invTime > 0)
         {
 
@@ -118,7 +169,6 @@ public class PlayerVariables : MonoBehaviour {
         else
         {
             Health -= damage;
-            DamageTaken += damage;
         }
         return false;
     }

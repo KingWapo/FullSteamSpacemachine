@@ -32,7 +32,7 @@ public class Projectile : MonoBehaviour {
         }
         else if (other.tag == "Enemy" && PlayerShot)
         {
-            other.gameObject.GetComponent<EnemyController>().OnDeath();
+            other.gameObject.GetComponent<EnemyController>().OnDeath(true);
             Destroy(this.gameObject);
         }
         else if (other.tag == "Deathbox")
