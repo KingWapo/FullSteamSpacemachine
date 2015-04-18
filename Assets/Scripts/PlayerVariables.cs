@@ -35,8 +35,8 @@ public class PlayerVariables : MonoBehaviour {
         
     // Defensive
     public int BasicShields = 0;
-    public int MirrorShields = 0;
-    public bool Invincible = false;
+    private int mirrorTime = 120;
+    private int invTime = 600;
 
     // Full Steam
     public int SteamLevel = 0;
@@ -61,6 +61,8 @@ public class PlayerVariables : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Alpha6)) AddPowerup(Powerup.Invincibility);
             if (Input.GetKeyDown(KeyCode.Alpha7)) AddPowerup(Powerup.Steam);
         }
+
+        updateTimedPowerups();
 
         if (previousScore < calcScore())
         {
@@ -87,13 +89,26 @@ public class PlayerVariables : MonoBehaviour {
         }
     }
 
+    private void updateTimedPowerups()
+    {
+        if (invTime > 0)
+        {
+            invTime--;
+            print(invTime);
+        }
+        if (mirrorTime > 0)
+        {
+            mirrorTime--;
+        }
+    }
+
     public bool TakeDamage(int damage)
     {
-        if (Invincible)
+        if (invTime > 0)
         {
 
         }
-        else if (MirrorShields > 0)
+        else if (mirrorTime > 0)
         {
             return true;
         }
@@ -180,12 +195,13 @@ public class PlayerVariables : MonoBehaviour {
 
     private void AddMirrorShield()
     {
-        MirrorShields++;
+        mirrorTime = 120;
     }
 
     private void AddInvincibility()
     {
-        Invincible = true;
+        print("inv added");
+        invTime = 600;
     }
 
     private void AddSteam()
