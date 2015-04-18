@@ -11,6 +11,10 @@ public class EnemyController : MonoBehaviour {
 
     public GameObject ProjectilePrefab;
 
+    public ParticleSystem peepee;
+
+    private bool dead;
+
     private float t;
 
     private float speed;
@@ -34,14 +38,26 @@ public class EnemyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!target)
+        if (!dead)
         {
-            target = GameObject.FindGameObjectWithTag("Player").transform;
+            if (!target)
+            {
+                target = GameObject.FindGameObjectWithTag("Player").transform;
+            }
+
+            pathing();
+
+            fire();
+        }
+        else
+        {
+            if (!peepee.isPlaying)
+            {
+                Destroy(this.gameObject);
+            }
         }
 
-        pathing();
-
-        fire();
+        if (Input.GetKeyDown(KeyCode.Y)) OnDeath();
 	}
 
     void OnTriggerEnter(Collider other)
@@ -74,6 +90,13 @@ public class EnemyController : MonoBehaviour {
                 length = Random.Range(1.0f, 10.0f);
                 break;
         }
+    }
+
+    public void OnDeath()
+    {
+        dead = true;
+        GetComponent<MeshRenderer>().enabled = false;
+        peepee.Play();
     }
 
     private void pathing()
