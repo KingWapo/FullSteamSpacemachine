@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 2cbce8f55614ac84cb8a74b712bda997
-timeCreated: 1429311887
+timeCreated: 1429328352
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - playerShip: {fileID: 101044, guid: 0fa366ccf0420674d9b02f641fe9bc15, type: 2}
+  - oculusController: {fileID: 100000, guid: 5f5583bc57bb8574a8bd16fd6ca86eb6, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
