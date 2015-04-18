@@ -76,10 +76,10 @@ public class GameManager : MonoBehaviour {
                 break;
             case AimType.Oculus_Aim:
                 Camera.main.enabled = false;
-                Instantiate(oculusController, cameraPos, Quaternion.identity);
+                GameObject temp = (GameObject)Instantiate(oculusController, cameraPos, Quaternion.identity);
 
                 OculusAim oculus = ship.AddComponent<OculusAim>();
-                oculus.camera = oculusController;
+                oculus.camera = temp;
                 break;
         }
 

@@ -8,11 +8,12 @@ public class OculusAim : AimController {
     // Update is called once per frame
     void Update() {
         if (shooter.IsShooting()) {
-            Transform centerAnchor = camera.transform.FindChild("TrackingSpace").FindChild("CenterEyeAnchor");
+            Transform centerAnchor = camera.transform.FindChild("TrackingSpace").FindChild("CenterEyeAnchor").GetChild(0);
+            print(camera);
 
             if (centerAnchor != null) {
-                //print("TRANSFORM");
-                shooter.OculusShoot(camera.transform);
+                print(centerAnchor);
+                shooter.OculusShoot(centerAnchor);
             }
         }
     }
