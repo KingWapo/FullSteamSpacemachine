@@ -54,7 +54,9 @@ public class EnemyController : MonoBehaviour {
                     shotCooldown = 40;
                     break;
                 case Attack.SlowAim:
-
+                    projectile.transform.LookAt(target);
+                    projectile.GetComponent<Projectile>().Speed = .5f;
+                    shotCooldown = 300;
                     break;
             }
         }

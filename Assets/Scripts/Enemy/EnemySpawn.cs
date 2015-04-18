@@ -42,6 +42,6 @@ public class EnemySpawn : MonoBehaviour {
         enemy.transform.position = pos;
         enemy.transform.rotation = transform.rotation;
         enemy.GetComponent<EnemyController>().path = EnemyController.Path.Straight;
-        enemy.GetComponent<EnemyController>().attack = EnemyController.Attack.QuickStraight;
+        enemy.GetComponent<EnemyController>().attack = EnemyController.Attack.SlowAim;
     }
 }
