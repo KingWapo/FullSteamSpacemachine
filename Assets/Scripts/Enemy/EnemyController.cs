@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class EnemyController : MonoBehaviour {
-
     // Enums to determine behavior
     public enum Path { Straight, ZigZag, Spiral, Chase }
     public enum Attack { QuickStraight, SlowAim }
@@ -14,7 +13,13 @@ public class EnemyController : MonoBehaviour {
 
     private float speed;
     private float shotCooldown;
+    private float spiralRadius;
+    private float theta;
+    private Vector2 centerXY;
     private Transform target;
+
+    // Debugging
+    private Vector3 forward;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +33,8 @@ public class EnemyController : MonoBehaviour {
             target = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
-        transform.Translate(Vector3.forward * speed);
+        pathing();
+
         fire();
 	}
 
@@ -38,6 +44,52 @@ public class EnemyController : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+    }
+
+    public void SetPath(Path myPath)
+    {
+        path = myPath;
+
+        switch (myPath)
+        {
+            case Path.Straight:
+                break;
+            case Path.Spiral:
+                spiralRadius = Random.Range(1.0f, 10.0f);
+                theta = 0;
+                centerXY = new Vector2(transform.position.x, transform.position.y);
+                break;
+        }
+    }
+
+    private void pathing()
+    {
+        switch(path)
+        {
+            case Path.Straight:
+                transform.Translate(Vector3.forward * speed);
+                break;
+            case Path.Spiral:
+                spiralPath();
+                break;
+        }
+    }
+
+    private void spiralPath()
+    {
+        theta = (theta + speed * 0.75f) % 6.283185307179586476925286766559f;
+        forward = Vector3.forward;
+        Vector3 pos = transform.position + transform.forward * speed;
+        pos.x = centerXY.x + spiralRadius * Mathf.Cos(theta);
+        pos.y = centerXY.y + spiralRadius * Mathf.Sin(theta);
+        /*
+        float x = centerXY.x + Mathf.Cos(theta);
+        float y = centerXY.y + Mathf.Sin(theta);
+        float z = transform.position.z + (Vector3.forward * speed).z;
+
+        Vector3 pos = new Vector3(x, y, -z);*/
+
+        transform.transform.position = pos;
     }
 
     private void fire()
