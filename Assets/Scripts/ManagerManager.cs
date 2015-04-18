@@ -7,9 +7,13 @@ public class ManagerManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        if (GameObject.Find("GameManager") == null) {
-            Instantiate(gameManagerPre, new Vector3(), Quaternion.identity);
+        GameObject manager = GameObject.Find("GameManager");
+
+        if (manager == null) {
+            manager = (GameObject)Instantiate(gameManagerPre, new Vector3(), Quaternion.identity);
         }
+
+        manager.GetComponent<GameManager>().SpawnPlayer();
 	}
 	
 	// Update is called once per frame

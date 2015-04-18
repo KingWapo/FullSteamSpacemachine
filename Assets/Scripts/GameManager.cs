@@ -4,19 +4,22 @@ using System.Collections;
 public enum MoveType {
     Controller_Move,
     Keyboard_Move,
-    Joystick_Move
+    Joystick_Move,
+    None_Move
 };
 
 public enum ShootType {
     Controller_Shoot,
     Keyboard_Shoot,
-    Button_Shoot
+    Button_Shoot,
+    None_Shoot
 };
 
 public enum AimType {
     Controller_Aim,
     Mouse_Aim,
-    Oculus_Aim
+    Oculus_Aim,
+    None_Aim
 };
 
 public class GameManager : MonoBehaviour {
@@ -35,6 +38,10 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        DontDestroyOnLoad(this);
+	}
+
+    public void SpawnPlayer() {
         GameObject ship = Instantiate(playerShip);
 
         switch (moveType) {
@@ -79,12 +86,12 @@ public class GameManager : MonoBehaviour {
                 GameObject temp = (GameObject)Instantiate(oculusController, cameraPos, Quaternion.identity);
 
                 OculusAim oculus = ship.AddComponent<OculusAim>();
-                oculus.camera = temp;
+                oculus.ocCamera = temp;
                 break;
         }
 
         aimTypeStatic = aimType;
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
