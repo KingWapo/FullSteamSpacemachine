@@ -192,7 +192,7 @@ public class EnemyController : MonoBehaviour {
         }
 
         pUp.transform.position = transform.position;
-        print(pUp.GetComponent<PowerupBehavior>().PowerupType);
+        //print(pUp.GetComponent<PowerupBehavior>().PowerupType);
     }
 
     private void fire()

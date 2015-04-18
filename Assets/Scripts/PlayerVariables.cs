@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public enum Powerup
@@ -22,6 +23,9 @@ public class PlayerVariables : MonoBehaviour {
     public int DamageTaken;
     public int DamageDealt;
 
+    private Text scoreText;
+    private int previousScore = 0;
+
 // Powerup info
 
     // Offensive
@@ -42,7 +46,7 @@ public class PlayerVariables : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+        scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
 	}
 	
 	// Update is called once per frame
@@ -57,6 +61,12 @@ public class PlayerVariables : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Alpha6)) AddPowerup(Powerup.Invincibility);
             if (Input.GetKeyDown(KeyCode.Alpha7)) AddPowerup(Powerup.Steam);
         }
+
+        if (previousScore < calcScore())
+        {
+            previousScore = (int)Mathf.Lerp(previousScore, calcScore(), Time.deltaTime);
+        }
+        scoreText.text = "Score: " + previousScore;
 	}
 
     void OnCollisionEnter(Collision col)
@@ -72,30 +82,7 @@ public class PlayerVariables : MonoBehaviour {
     {
         if (other.tag == "Powerup")
         {
-            switch(other.gameObject.GetComponent<PowerupBehavior>().PowerupType)
-            {
-                case Powerup.LaserStrength:
-                    AddLaserStrength();
-                    break;
-                case Powerup.SpreadShot:
-                    AddSpreadShot();
-                    break;
-                case Powerup.FireRate:
-                    AddFireRate();
-                    break;
-                case Powerup.BasicShield:
-                    AddBasicShield();
-                    break;
-                case Powerup.MirrorShield:
-                    AddMirrorShield();
-                    break;
-                case Powerup.Invincibility:
-                    AddInvincibility();
-                    break;
-                case Powerup.Steam:
-                    AddSteam();
-                    break;
-            }
+            AddPowerup(other.gameObject.GetComponent<PowerupBehavior>().PowerupType);
             Destroy(other.gameObject);
         }
     }
@@ -128,6 +115,11 @@ public class PlayerVariables : MonoBehaviour {
         DamageDealt += 10;
     }
 
+    private int calcScore()
+    {
+        return Kills * 169 + PowerupCount * 23 + DamageDealt * 6;
+    }
+
     private void AddPowerup(Powerup type)
     {
         switch(type)
@@ -154,6 +146,7 @@ public class PlayerVariables : MonoBehaviour {
                 AddSteam();
                 break;
         }
+        PowerupCount++;
     }
 
     private void AddLaserStrength()

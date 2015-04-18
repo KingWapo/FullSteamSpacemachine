@@ -55,7 +55,6 @@ public class EnemySpawn : MonoBehaviour {
     {
         float y = (elapsedTime - 300) * (elapsedTime - 300) / 1800.0f;
         y = Mathf.Max(5.0f, y);
-        print(y);
         return y;
     }
 }
