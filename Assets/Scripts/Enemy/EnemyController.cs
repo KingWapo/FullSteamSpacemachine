@@ -101,8 +101,14 @@ public class EnemyController : MonoBehaviour {
             dead = true;
             GetComponent<MeshRenderer>().enabled = false;
             peepee.Play();
-            
+            if (Random.Range(0.0f, 100.0f) < spawnChanceFunc())
+                spawnPowerup();
         }
+    }
+
+    private float spawnChanceFunc()
+    {
+
     }
 
     private void pathing()
@@ -158,7 +164,40 @@ public class EnemyController : MonoBehaviour {
     
     private void spawnPowerup()
     {
-        GameObject pUp = (GameObject)Instantiate(Powerups.SpreadShotPrefab);
+        GameObject pUp;
+
+        float percent = Random.Range(0.0f, 100.0f);
+        if (percent < 14) // 14% chance of laser strength.
+        {
+            pUp = (GameObject)Instantiate(Powerups.LaserStrengthPrefab);
+        }
+        else if (percent < 27) // 13% chance of spread shot.
+        {
+            pUp = (GameObject)Instantiate(Powerups.SpreadShotPrefab);
+        }
+        else if (percent < 40) // 13% chance of fire rate.
+        {
+            pUp = (GameObject)Instantiate(Powerups.FireRatePrefab);
+        }
+        else if (percent < 70) // 30% chance of basic shield.
+        {
+            pUp = (GameObject)Instantiate(Powerups.BasicShieldPrefab);
+        }
+        else if (percent < 80) // 10% chance of mirror shield.
+        {
+            pUp = (GameObject)Instantiate(Powerups.MirrorShieldPrefab);
+        }
+        else if (percent < 86) // 6% chance of invincibility.
+        {
+            pUp = (GameObject)Instantiate(Powerups.InvincibilityPrefab);
+        }
+        else // 14 % chance of steam.
+        {
+            pUp = (GameObject)Instantiate(Powerups.SteamPrefab);
+        }
+
+        pUp.transform.position = transform.position;
+        print(pUp.GetComponent<PowerupBehavior>().PowerupType);
     }
 
     private void fire()

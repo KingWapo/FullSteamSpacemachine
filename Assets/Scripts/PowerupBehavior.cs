@@ -5,7 +5,7 @@ public class PowerupBehavior : MonoBehaviour {
 
     public Powerup PowerupType;
 
-    private float threshold = 10.0f;
+    private float threshold = 20.0f;
     private GameObject player;
 
 	// Use this for initialization
@@ -31,6 +31,6 @@ public class PowerupBehavior : MonoBehaviour {
 
         pos += bonus;
 
-        transform.Translate(pos);
+        transform.position += pos;
 	}
 }

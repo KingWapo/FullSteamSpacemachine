@@ -1,10 +1,17 @@
 fileFormatVersion: 2
 guid: 4a4dccf35184cf3478a4954d2244160c
-timeCreated: 1429359824
+timeCreated: 1429365336
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - LaserStrPrefab: {fileID: 142756, guid: b648edb2138d6134ea9fc859b8adacee, type: 2}
+  - SprdShotPrefab: {fileID: 112964, guid: 8dd933eed044a1549933917156d85120, type: 2}
+  - FireRtPrefab: {fileID: 119604, guid: 368f73bafdb4cc34d87aa74349768710, type: 2}
+  - BasicShldPrefab: {fileID: 177638, guid: c68c884698778d5418081bda887a3a8a, type: 2}
+  - MirrorShldPrefab: {fileID: 195464, guid: 342533ec9de6537488c2b4182db73044, type: 2}
+  - InvPrefab: {fileID: 104232, guid: 492ee823d9dfb8b4bbec9c389a1210fb, type: 2}
+  - StmPrefab: {fileID: 154978, guid: 52aad832c6b5d5a459bf668fb509f038, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

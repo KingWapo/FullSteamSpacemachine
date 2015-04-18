@@ -68,6 +68,38 @@ public class PlayerVariables : MonoBehaviour {
         }
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Powerup")
+        {
+            switch(other.gameObject.GetComponent<PowerupBehavior>().PowerupType)
+            {
+                case Powerup.LaserStrength:
+                    AddLaserStrength();
+                    break;
+                case Powerup.SpreadShot:
+                    AddSpreadShot();
+                    break;
+                case Powerup.FireRate:
+                    AddFireRate();
+                    break;
+                case Powerup.BasicShield:
+                    AddBasicShield();
+                    break;
+                case Powerup.MirrorShield:
+                    AddMirrorShield();
+                    break;
+                case Powerup.Invincibility:
+                    AddInvincibility();
+                    break;
+                case Powerup.Steam:
+                    AddSteam();
+                    break;
+            }
+            Destroy(other.gameObject);
+        }
+    }
+
     public bool TakeDamage(int damage)
     {
         if (Invincible)
