@@ -36,6 +36,10 @@ public class AimController : MonoBehaviour {
         posY = Mathf.Clamp(newPos.y, edgeBuffer, Screen.height - edgeBuffer);
     }
 
+    public Vector2 GetPos() {
+        return new Vector2(posX, posY);
+    }
+
     void OnGUI() {
         GUI.Label(new Rect(posX - sightSize / 2, posY - sightSize / 2, sightSize, sightSize), crosshair.texture);
     }

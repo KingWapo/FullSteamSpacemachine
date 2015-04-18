@@ -22,6 +22,7 @@ public enum ShootType {
 public class GameManager : MonoBehaviour {
 
     public GameObject playerShip;
+    public GameObject projectile;
     public GameObject oculusController;
 
     public MoveType moveType = MoveType.Controller_Move;
@@ -61,13 +62,22 @@ public class GameManager : MonoBehaviour {
                 break;
         }
 
+        ShootController shooter = null;
+
         switch (shootType) {
             case ShootType.Controller_Shoot:
+                shooter = ship.AddComponent<Controller360Shoot>();
                 break;
             case ShootType.Keyboard_Shoot:
+                shooter = ship.AddComponent<KeyboardShoot>();
                 break;
             case ShootType.Button_Shoot:
+                shooter = ship.AddComponent<ButtonShoot>();
                 break;
+        }
+
+        if (shooter != null) {
+            shooter.projectilePre = projectile;
         }
 	}
 	
