@@ -3,8 +3,6 @@ using System.Collections;
 
 public class AimController : MonoBehaviour {
 
-    public Texture crossheir;
-
     public float sensitivityX = 1.0f;
     public float sensitivityY = 1.0f;
 
@@ -15,6 +13,13 @@ public class AimController : MonoBehaviour {
     private float posY = Screen.height / 2.0f;
 
     private float sightSize = 32.0f;
+
+    private Sprite crosshair;
+
+    // Use this for initialization
+    void Start() {
+        crosshair = (Sprite)Resources.LoadAssetAtPath("Assets/Imports/Crosshair.png", typeof(Sprite));
+    }
 
     // -1 to 1 for each axis
     // call this to aim
@@ -32,6 +37,6 @@ public class AimController : MonoBehaviour {
     }
 
     void OnGUI() {
-        GUI.Label(new Rect(posX - sightSize / 2, posY - sightSize / 2, sightSize, sightSize), crossheir);
+        GUI.Label(new Rect(posX - sightSize / 2, posY - sightSize / 2, sightSize, sightSize), crosshair.texture);
     }
 }
