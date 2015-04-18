@@ -18,6 +18,21 @@ public class ManagerManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+	    if (EndGame.End)
+        {
+            Cursor.visible = true;
+        }
 	}
+
+    public void Retry()
+    {
+        EndGame.End = false;
+        Application.LoadLevel(Application.loadedLevel);
+    }
+
+    public void MainMenu()
+    {
+        EndGame.End = false;
+        Application.LoadLevel("MainMenu");
+    }
 }
