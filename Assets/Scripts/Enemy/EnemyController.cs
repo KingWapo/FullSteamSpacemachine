@@ -88,7 +88,7 @@ public class EnemyController : MonoBehaviour {
                 float rise = Mathf.Sin(rotation);
                 float run = Mathf.Cos(rotation);
                 slope = rise / run;
-                length = Random.Range(1.0f, 10.0f);
+                length = Random.Range(0.3f, 5.0f);
                 break;
         }
     }
@@ -101,14 +101,9 @@ public class EnemyController : MonoBehaviour {
             dead = true;
             GetComponent<MeshRenderer>().enabled = false;
             peepee.Play();
-            if (Random.Range(0.0f, 100.0f) < spawnChanceFunc())
+            if (Random.Range(0.0f, 100.0f) < EnemySpawn.PowerupSpawnFunc())
                 spawnPowerup();
         }
-    }
-
-    private float spawnChanceFunc()
-    {
-
     }
 
     private void pathing()
@@ -138,7 +133,7 @@ public class EnemyController : MonoBehaviour {
 
     private void spiralPath()
     {
-        t = (t + speed * 0.75f) % 6.283185307179586476925286766559f;
+        t = (t + speed * 0.1f) % 6.283185307179586476925286766559f;
         Vector3 pos = transform.position + transform.forward * speed;
         pos.x = centerXY.x + spiralRadius * Mathf.Cos(t);
         pos.y = centerXY.y + spiralRadius * Mathf.Sin(t);
@@ -153,7 +148,7 @@ public class EnemyController : MonoBehaviour {
             direction *= -1;
         }
 
-        t += direction * speed;
+        t += direction * speed * 0.4f;
 
         Vector3 pos = transform.position + transform.forward * speed;
         pos.x = centerXY.x + t;

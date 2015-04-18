@@ -3,18 +3,22 @@ using System.Collections;
 
 public class EnemySpawn : MonoBehaviour {
 
+    public static float elapsedTime;
+
     public GameObject EnemyPrefab;
 
     private float spawnValue = 100;
 
 	// Use this for initialization
 	void Start () {
-	
+        elapsedTime = 0;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        
+
+        elapsedTime += Time.deltaTime;
+
 	    if (spawnSystem() <= 0)
         {
             spawnEnemy();
@@ -45,5 +49,13 @@ public class EnemySpawn : MonoBehaviour {
         enemy.GetComponent<EnemyController>().SetPath((EnemyController.Path)num);
         num = Random.Range(0, (int)EnemyController.Attack.Max);
         enemy.GetComponent<EnemyController>().attack = (EnemyController.Attack)num;
+    }
+
+    public static float PowerupSpawnFunc()
+    {
+        float y = (elapsedTime - 300) * (elapsedTime - 300) / 1800.0f;
+        y = Mathf.Max(5.0f, y);
+        print(y);
+        return y;
     }
 }

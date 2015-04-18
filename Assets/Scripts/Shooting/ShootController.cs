@@ -107,7 +107,7 @@ public class ShootController : MonoBehaviour {
         GameObject projectile = (GameObject)Instantiate(projectilePre);
         projectile.transform.position = transform.position;
         projectile.transform.LookAt(target);
-        projectile.GetComponent<Projectile>().Speed = 1f;
+        projectile.GetComponent<Projectile>().Speed = 2f;
         projectile.GetComponent<Projectile>().PlayerShot = true;
         return projectile;
     }
