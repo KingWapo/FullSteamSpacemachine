@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour {
     public AimType aimType = AimType.Controller_Aim;
     public ShootType shootType = ShootType.Controller_Shoot;
 
+    public static AimType aimTypeStatic;
+
     private Vector3 cameraPos = new Vector3(0, 0, -10);
 
 	// Use this for initialization
@@ -61,6 +63,8 @@ public class GameManager : MonoBehaviour {
                 ship.AddComponent<OculusAim>();
                 break;
         }
+
+        aimTypeStatic = aimType;
 
         ShootController shooter = null;
 

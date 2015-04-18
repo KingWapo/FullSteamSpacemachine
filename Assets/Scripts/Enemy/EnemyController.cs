@@ -29,11 +29,14 @@ public class EnemyController : MonoBehaviour {
 
     private Transform target;
 
+    private float spawnChance;
+
     // Debugging
 
 	// Use this for initialization
 	void Start () {
-        speed = Random.Range(0.01f, 0.05f);
+        speed = Random.Range(0.04f, 0.1f);
+        spawnChance = Random.Range(0.0f, 10.0f);
 	}
 	
 	// Update is called once per frame
@@ -56,8 +59,6 @@ public class EnemyController : MonoBehaviour {
                 Destroy(this.gameObject);
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.Y)) OnDeath();
 	}
 
     void OnTriggerEnter(Collider other)
@@ -94,9 +95,14 @@ public class EnemyController : MonoBehaviour {
 
     public void OnDeath()
     {
-        dead = true;
-        GetComponent<MeshRenderer>().enabled = false;
-        peepee.Play();
+        if (!dead)
+        {
+            target.gameObject.GetComponent<PlayerVariables>().Kill();
+            dead = true;
+            GetComponent<MeshRenderer>().enabled = false;
+            peepee.Play();
+            
+        }
     }
 
     private void pathing()
@@ -150,6 +156,10 @@ public class EnemyController : MonoBehaviour {
         transform.position = pos;
     }
     
+    private void spawnPowerup()
+    {
+        GameObject pUp = (GameObject)Instantiate(Powerups.SpreadShotPrefab);
+    }
 
     private void fire()
     {
@@ -157,6 +167,7 @@ public class EnemyController : MonoBehaviour {
         {
             GameObject projectile = (GameObject)Instantiate(ProjectilePrefab);
             projectile.transform.position = transform.position;
+            projectile.GetComponent<Projectile>().PlayerShot = false;
             switch (attack)
             {
                 case Attack.QuickStraight:

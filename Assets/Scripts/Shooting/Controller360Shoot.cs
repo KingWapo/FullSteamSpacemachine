@@ -10,5 +10,10 @@ public class Controller360Shoot : ShootController {
         if (trigger > .1f) {
             StandardShoot();
         }
+
+        if (Debugging)
+        {
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.white, 5, true);
+        }
 	}
 }

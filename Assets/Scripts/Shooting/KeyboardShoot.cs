@@ -10,5 +10,10 @@ public class KeyboardShoot : ShootController {
         if (space) {
             StandardShoot();
         }
+
+        if (Debugging)
+        {
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.white, 5, true);
+        }
 	}
 }

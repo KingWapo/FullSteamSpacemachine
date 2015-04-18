@@ -30,10 +30,8 @@ public class AimController : MonoBehaviour {
         float newX = Mathf.Lerp(posX, posX + axisX * sensitivityX, Time.deltaTime);
         float newY = Mathf.Lerp(posY, posY + axisY * sensitivityY, Time.deltaTime);
 
-        Vector2 newPos = new Vector2(newX, newY);
-
-        posX = Mathf.Clamp(newPos.x, edgeBuffer, Screen.width - edgeBuffer);
-        posY = Mathf.Clamp(newPos.y, edgeBuffer, Screen.height - edgeBuffer);
+        posX = Mathf.Clamp(newX, edgeBuffer, Screen.width - edgeBuffer);
+        posY = Mathf.Clamp(newY, edgeBuffer, Screen.height - edgeBuffer);
     }
 
     public Vector2 GetPos() {
