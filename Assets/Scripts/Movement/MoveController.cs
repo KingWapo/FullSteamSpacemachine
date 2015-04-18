@@ -12,7 +12,6 @@ public class MoveController : MonoBehaviour {
 
         float posX = oldPos.x;
         float posY = oldPos.y;
-        float posZ = oldPos.z;
 
         float newX = Mathf.Lerp(posX, posX + axisX * speed, Time.deltaTime);
         float newY = Mathf.Lerp(posY, posY + axisY * speed, Time.deltaTime);
