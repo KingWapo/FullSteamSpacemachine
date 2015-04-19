@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyController : MonoBehaviour {
     // Enums to determine behavior
@@ -12,6 +13,8 @@ public class EnemyController : MonoBehaviour {
     public GameObject ProjectilePrefab;
 
     public ParticleSystem peepee;
+
+    public List<Material> mats;
 
     private bool dead;
 
@@ -39,6 +42,11 @@ public class EnemyController : MonoBehaviour {
         speed = Random.Range(0.04f, 0.1f);
         originalSpeed = speed;
         spawnChance = Random.Range(0.0f, 10.0f);
+
+        GameObject child = transform.GetChild(0).gameObject;
+        Material mat = mats[Random.Range(0, mats.Count)];
+        child.GetComponent<MeshRenderer>().material = mat;
+        child.GetComponent<MeshRenderer>().materials[0] = mat;
 	}
 	
 	// Update is called once per frame

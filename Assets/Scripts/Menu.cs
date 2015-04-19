@@ -111,7 +111,6 @@ public class Menu : MonoBehaviour {
 	}
 
     public void PlayGame() {
-        print("PLAY GAME");
         mainPanel.SetActive(false);
         playPanel.SetActive(true);
 

@@ -1,0 +1,178 @@
+fileFormatVersion: 2
+guid: 02368b030f783a14ba66035f311d0409
+timeCreated: 1429464425
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Base_A
+    100002: Base_B
+    100004: Base_C
+    100006: Base_D
+    100008: Bulb_A
+    100010: Bulb_B
+    100012: Bulb_C
+    100014: Bulb_D
+    100016: Filament_01
+    100018: Filament_01 1
+    100020: Filament_01 2
+    100022: Filament_01 3
+    100024: FilamentStuff3
+    100026: group1
+    100028: group2
+    100030: group3
+    100032: group4
+    100034: Pole_One_A
+    100036: Pole_One_A 1
+    100038: Pole_One_A 2
+    100040: Pole_One_A 3
+    100042: Pole_One_B
+    100044: Pole_One_B 1
+    100046: Pole_One_B 2
+    100048: Pole_One_B 3
+    100050: //RootNode
+    400000: Base_A
+    400002: Base_B
+    400004: Base_C
+    400006: Base_D
+    400008: Bulb_A
+    400010: Bulb_B
+    400012: Bulb_C
+    400014: Bulb_D
+    400016: Filament_01
+    400018: Filament_01 1
+    400020: Filament_01 2
+    400022: Filament_01 3
+    400024: FilamentStuff3
+    400026: group1
+    400028: group2
+    400030: group3
+    400032: group4
+    400034: Pole_One_A
+    400036: Pole_One_A 1
+    400038: Pole_One_A 2
+    400040: Pole_One_A 3
+    400042: Pole_One_B
+    400044: Pole_One_B 1
+    400046: Pole_One_B 2
+    400048: Pole_One_B 3
+    400050: //RootNode
+    2300000: Base_A
+    2300002: Base_B
+    2300004: Base_C
+    2300006: Base_D
+    2300008: Bulb_A
+    2300010: Bulb_B
+    2300012: Bulb_C
+    2300014: Bulb_D
+    2300016: Filament_01
+    2300018: Filament_01 1
+    2300020: Filament_01 2
+    2300022: Filament_01 3
+    2300024: Pole_One_A
+    2300026: Pole_One_A 1
+    2300028: Pole_One_A 2
+    2300030: Pole_One_A 3
+    2300032: Pole_One_B
+    2300034: Pole_One_B 1
+    2300036: Pole_One_B 2
+    2300038: Pole_One_B 3
+    3300000: Base_A
+    3300002: Base_B
+    3300004: Base_C
+    3300006: Base_D
+    3300008: Bulb_A
+    3300010: Bulb_B
+    3300012: Bulb_C
+    3300014: Bulb_D
+    3300016: Filament_01
+    3300018: Filament_01 1
+    3300020: Filament_01 2
+    3300022: Filament_01 3
+    3300024: Pole_One_A
+    3300026: Pole_One_A 1
+    3300028: Pole_One_A 2
+    3300030: Pole_One_A 3
+    3300032: Pole_One_B
+    3300034: Pole_One_B 1
+    3300036: Pole_One_B 2
+    3300038: Pole_One_B 3
+    4300000: Pole_One_B
+    4300002: Base_A
+    4300004: Bulb_A
+    4300006: Filament_01
+    4300008: Pole_One_A
+    4300010: Pole_One_B
+    4300012: Base_B
+    4300014: Bulb_B
+    4300016: Filament_01
+    4300018: Pole_One_A
+    4300020: Pole_One_B
+    4300022: Base_C
+    4300024: Bulb_C
+    4300026: Filament_01
+    4300028: Pole_One_A
+    4300030: Pole_One_B
+    4300032: Base_D
+    4300034: Bulb_D
+    4300036: Filament_01
+    4300038: Pole_One_A
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

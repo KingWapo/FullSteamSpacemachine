@@ -141,7 +141,6 @@ public class PlayerVariables : MonoBehaviour {
                 {
                     FullSteam.SetActive(false);
                     FullSteamSpacemachine = false;
-                    print("Full Steam Exited");
                     transform.GetChild(0).gameObject.SetActive(true);
                 }
             }
@@ -398,7 +397,6 @@ public class PlayerVariables : MonoBehaviour {
             SteamLevel = 0;
             FullSteam.SetActive(true);
             FullSteamSpacemachine = true;
-            print("Full Steam Activated!!");
             transform.GetChild(0).gameObject.SetActive(false);
         }
     }
