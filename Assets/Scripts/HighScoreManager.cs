@@ -13,7 +13,7 @@ public class HighScoreManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        /*if (Menu.IsOculus)
+        if (Menu.IsOculus)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -26,10 +26,13 @@ public class HighScoreManager : MonoBehaviour {
 
                 if (hit.collider != null)
                 {
-                    Button(hit.collider.gameObject.GetComponent<Button>());
+                    if (hit.collider.gameObject.tag == "Button")
+                    {
+                        Button(hit.collider.gameObject.GetComponent<Button>());
+                    }
                 }
             }
-        }*/
+        }
 	}
 
     public void Button(Button pressed)

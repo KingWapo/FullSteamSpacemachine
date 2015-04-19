@@ -8,6 +8,7 @@ public enum BtnType {
 };
 
 public class Menu : MonoBehaviour {
+    public static bool IsOculus;
     public bool isOculus = false;
 
     public GameObject mainPanel;
@@ -39,7 +40,7 @@ public class Menu : MonoBehaviour {
             ocController = (GameObject)Instantiate(gameManager.oculusController, Camera.main.transform.position, Camera.main.transform.rotation);
             Camera.main.enabled = false;
         }
-
+        IsOculus = isOculus;
         gameManager.moveType = MoveType.None_Move;
         gameManager.aimType = AimType.None_Aim;
         gameManager.shootType = ShootType.None_Shoot;

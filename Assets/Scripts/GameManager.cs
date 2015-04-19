@@ -90,11 +90,8 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Application.loadedLevelName == "Gameplay") {
-            print("in gameplay");
             if (aimType == AimType.Oculus_Aim) {
-                print("is oculus");
                 if (Input.GetKeyDown(KeyCode.Space)) {
-                    print("did space");
                     Transform centerAnchor = ocControllerInstance.transform.FindChild("TrackingSpace").FindChild("CenterEyeAnchor").GetChild(0);
 
                     RaycastHit hit;
@@ -102,10 +99,9 @@ public class GameManager : MonoBehaviour {
 
                     Physics.Raycast(ray, out hit);
 
-                    if (hit.transform.parent != null) {
-                        print("hit name: " + hit.transform.parent.name);
+                    if (hit.transform != null) {
                         ManagerManager manager = GameObject.Find("ManagerManager").GetComponent<ManagerManager>();
-                        switch (hit.transform.parent.name) {
+                        switch (hit.transform.gameObject.name) {
                             case "Retry":
                                 manager.Retry();
                                 break;
