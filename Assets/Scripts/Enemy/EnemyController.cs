@@ -211,10 +211,18 @@ public class EnemyController : MonoBehaviour {
         }
         else // 14 % chance of steam.
         {
-            pUp = (GameObject)Instantiate(Powerups.SteamPrefab);
+            if (!PlayerVariables.FullSteamSpacemachine)
+                pUp = (GameObject)Instantiate(Powerups.SteamPrefab);
+            else
+            {
+                pUp = new GameObject();
+                pUp.name = "DeleteMe";
+            }
         }
-
+        
         pUp.transform.position = transform.position;
+        if (pUp.name == "DeleteMe")
+            Destroy(pUp);
     }
 
     private void fire()
