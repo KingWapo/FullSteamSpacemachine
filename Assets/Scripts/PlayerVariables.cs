@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum Powerup
 {
@@ -39,6 +40,9 @@ public class PlayerVariables : MonoBehaviour {
     public Text DamageDealtText;
     public Text DamageTakenText;
     public Text PowerupsCollectedText;
+    public GameObject NewHighScore;
+
+    private bool highScore;
 
 // Powerup info
 
@@ -81,6 +85,8 @@ public class PlayerVariables : MonoBehaviour {
             DamageDealtText = GameObject.FindGameObjectWithTag("DamageDealt").GetComponent<Text>();
             DamageTakenText = GameObject.FindGameObjectWithTag("DamageTaken").GetComponent<Text>();
             PowerupsCollectedText = GameObject.FindGameObjectWithTag("PowerupsCollected").GetComponent<Text>();
+            NewHighScore = GameObject.FindGameObjectWithTag("NewHighScore");
+            NewHighScore.SetActive(false);
 
             TextParent.SetActive(false);
         }
@@ -187,14 +193,40 @@ public class PlayerVariables : MonoBehaviour {
             dead = true;
             transform.GetChild(0).gameObject.SetActive(false);
             Explosion.Play();
-            TextParent.SetActive(true);
-            scoreText.text = "";
-            ScoreText.text = "" + calcScore();
-            KillsText.text = "" + Kills;
-            DamageDealtText.text = "" + DamageDealt;
-            DamageTakenText.text = "" + DamageTaken;
-            PowerupsCollectedText.text = "" + PowerupCount;
+            setUI();
         }
+    }
+
+    private void setUI()
+    {
+        List<int> deseScores = GameManager.GetHighScores();
+        if (calcScore() > deseScores[deseScores.Count - 1])
+        {
+            NewHighScore.SetActive(true);
+            highScore = true;
+            setHighScoreEntry();
+        }
+        else
+        {
+            setRegUI();
+        }
+    }
+
+    public void setRegUI()
+    {
+        NewHighScore.SetActive(false);
+        TextParent.SetActive(true);
+        scoreText.text = "";
+        ScoreText.text = "" + calcScore();
+        KillsText.text = "" + Kills;
+        DamageDealtText.text = "" + DamageDealt;
+        DamageTakenText.text = "" + DamageTaken;
+        PowerupsCollectedText.text = "" + PowerupCount;
+    }
+
+    private void setHighScoreEntry()
+    {
+        
     }
 
     private void updateTimedPowerups()
@@ -250,7 +282,7 @@ public class PlayerVariables : MonoBehaviour {
         bonusDamage += bonus;
     }
 
-    private int calcScore()
+    public int calcScore()
     {
         return Kills * 169 + PowerupCount * 23 + DamageDealt * 6 + bonusDamage * 56;
     }
