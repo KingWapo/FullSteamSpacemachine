@@ -41,6 +41,10 @@ public class EnemyController : MonoBehaviour {
     private int fireRateLevel = 0;
 
     private int basicShield = 0;
+    public GameObject basicShieldObj;
+    private float shieldPulseTime;
+    private bool pulseShield;
+    private bool pulseShieldDown;
 
     // Debugging
 
@@ -54,10 +58,21 @@ public class EnemyController : MonoBehaviour {
         Material mat = mats[Random.Range(0, mats.Count)];
         child.GetComponent<MeshRenderer>().material = mat;
         child.GetComponent<MeshRenderer>().materials[0] = mat;
+
+        DeterminePowerup();
 	}
 
     private void DeterminePowerup() {
-        basicShield = Random.Range(0, 2);
+        //basicShield = Random.Range(0, 2);
+
+
+        if (basicShield == 1) {
+            basicShieldObj.SetActive(true);
+        } else {
+            shieldPulseTime = 0;
+            pulseShieldDown = false;
+            pulseShield = true;
+        }
         //fireRateLevel = Random.Range(0, 6);
         //spreadShotLevel = Random.Range(0, 6);
     }
@@ -68,8 +83,14 @@ public class EnemyController : MonoBehaviour {
         if (EndGame.End) 
             OnDeath(false);
 
-        if (!dead)
-        {
+        if (!dead) {
+            if (pulseShield) {
+                ModulateShield();
+            }
+            if (pulseShieldDown) {
+                ModulateShieldDown();
+            }
+
             if (PlayerVariables.FullSteamSpacemachine)
             {
                 speed = originalSpeed * 10;
@@ -149,14 +170,42 @@ public class EnemyController : MonoBehaviour {
 
                 if (Random.Range(0.0f, 100.0f) < EnemySpawn.PowerupSpawnFunc() && byProj)
                     spawnPowerup();
+            } else {
+                DecrementShield();
             }
-        } else {
-            DecrementShield();
         }
     }
 
     private void DecrementShield() {
         basicShield--;
+        target.gameObject.GetComponent<PlayerVariables>().DamageDealt += 10;
+
+        if (basicShield <= 0) {
+            basicShieldObj.SetActive(false);
+        }
+        shieldPulseTime = 0;
+        pulseShield = false;
+        pulseShieldDown = true;
+    }
+
+    private void ModulateShield() {
+        if (shieldPulseTime < .5) {
+            shieldPulseTime += Time.deltaTime;
+            float glow = (Mathf.Sin(shieldPulseTime * Mathf.PI * 2)) + 2;
+            basicShieldObj.GetComponent<Renderer>().material.SetFloat("_BaseGlow", glow);
+        } else {
+            pulseShield = false;
+        }
+    }
+
+    private void ModulateShieldDown() {
+        if (shieldPulseTime < 2) {
+            shieldPulseTime += Time.deltaTime;
+            float glow = (Mathf.Sin(shieldPulseTime * Mathf.PI * 3 + (Mathf.PI / 2))) + 1f;
+            basicShieldObj.GetComponent<Renderer>().material.SetFloat("_BaseGlow", glow);
+        } else {
+            pulseShieldDown = false;
+        }
     }
 
     private void pathing()
