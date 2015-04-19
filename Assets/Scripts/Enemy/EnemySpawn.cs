@@ -5,6 +5,8 @@ public class EnemySpawn : MonoBehaviour {
 
     public static float elapsedTime;
 
+    public bool StopSpawn;
+
     public GameObject EnemyPrefab;
 
     private float spawnValue = 100;
@@ -19,15 +21,18 @@ public class EnemySpawn : MonoBehaviour {
 
         elapsedTime += Time.deltaTime;
 
-	    if (spawnValue <= 0)
+        if (!StopSpawn)
         {
-            spawnEnemy();
-            spawnValue = -(elapsedTime - 300) * (elapsedTime + 300) / 900;
-            spawnValue = Mathf.Max(20.0f, spawnValue);
-        }
-        else
-        {
-            spawnValue = PlayerVariables.FullSteamSpacemachine ? (spawnValue - 1) / 4.0f : spawnValue - 1;
+            if (spawnValue <= 0)
+            {
+                spawnEnemy();
+                spawnValue = -(elapsedTime - 300) * (elapsedTime + 300) / 900;
+                spawnValue = Mathf.Max(20.0f, spawnValue);
+            }
+            else
+            {
+                spawnValue = PlayerVariables.FullSteamSpacemachine ? (spawnValue - 1) / 4.0f : spawnValue - 1;
+            }
         }
 	}
 

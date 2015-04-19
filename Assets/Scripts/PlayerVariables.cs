@@ -210,6 +210,8 @@ public class PlayerVariables : MonoBehaviour {
         }
         else
         {
+            EnemySpawn spawn = GameObject.FindGameObjectWithTag("EnemySpawn").GetComponent<EnemySpawn>();
+            spawn.StopSpawn = true;
             setRegUI();
         }
     }
