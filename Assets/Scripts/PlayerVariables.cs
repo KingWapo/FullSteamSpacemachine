@@ -26,6 +26,8 @@ public class PlayerVariables : MonoBehaviour {
     public int DamageTaken;
     public int DamageDealt;
 
+    private int bonusDamage = 0;
+
     private Text scoreText;
     private int previousScore = 0;
 
@@ -50,7 +52,10 @@ public class PlayerVariables : MonoBehaviour {
     private int invTime = 600;
 
     // Full Steam
+    public GameObject FullSteam;
+    public static bool FullSteamSpacemachine;
     public int SteamLevel = 0;
+    private int steamTime = 0;
 
     // Debugging;
     public bool Debugging;
@@ -100,6 +105,18 @@ public class PlayerVariables : MonoBehaviour {
             if (Health <= 0)
             {
                 EndGame.End = true;
+            }
+
+            if (steamTime > 0)
+            {
+                steamTime--;
+                if (steamTime <= 0)
+                {
+                    FullSteam.SetActive(false);
+                    FullSteamSpacemachine = false;
+                    print("Full Steam Exited");
+                    transform.GetChild(0).gameObject.SetActive(true);
+                }
             }
         }
 	}
@@ -153,6 +170,8 @@ public class PlayerVariables : MonoBehaviour {
 
     public bool TakeDamage(int damage)
     {
+        if (steamTime > 0) return false;
+
         DamageTaken += damage;
         if (invTime > 0)
         {
@@ -179,9 +198,14 @@ public class PlayerVariables : MonoBehaviour {
         DamageDealt += 10;
     }
 
+    public void Bonus(int bonus)
+    {
+        bonusDamage += bonus;
+    }
+
     private int calcScore()
     {
-        return Kills * 169 + PowerupCount * 23 + DamageDealt * 6;
+        return Kills * 169 + PowerupCount * 23 + DamageDealt * 6 + bonusDamage * 56;
     }
 
     private void AddPowerup(Powerup type)
@@ -254,9 +278,15 @@ public class PlayerVariables : MonoBehaviour {
 
     private void AddSteam()
     {
-        if (SteamLevel < 4)
+        SteamLevel++;
+        if (SteamLevel == 4)
         {
-            SteamLevel++;
+            steamTime = 1200;
+            SteamLevel = 0;
+            FullSteam.SetActive(true);
+            FullSteamSpacemachine = true;
+            print("Full Steam Activated!!");
+            transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 }

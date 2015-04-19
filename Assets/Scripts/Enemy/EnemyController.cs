@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour {
     private float t;
 
     private float speed;
+    private float originalSpeed;
     private float shotCooldown;
 
     private float spiralRadius;
@@ -36,6 +37,7 @@ public class EnemyController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         speed = Random.Range(0.04f, 0.1f);
+        originalSpeed = speed;
         spawnChance = Random.Range(0.0f, 10.0f);
 	}
 	
@@ -47,6 +49,15 @@ public class EnemyController : MonoBehaviour {
 
         if (!dead)
         {
+            if (PlayerVariables.FullSteamSpacemachine)
+            {
+                speed = originalSpeed * 10;
+            }
+            else
+            {
+                speed = originalSpeed;
+            }
+
             if (!target)
             {
                 target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -70,6 +81,11 @@ public class EnemyController : MonoBehaviour {
         if (other.tag == "Deathbox")
         {
             Destroy(this.gameObject);
+        }
+        else if (other.tag == "Fullsteam")
+        {
+            target.GetComponent<PlayerVariables>().Bonus(30);
+            OnDeath(true);
         }
     }
 
@@ -212,12 +228,12 @@ public class EnemyController : MonoBehaviour {
             {
                 case Attack.QuickStraight:
                     projectile.transform.rotation = transform.rotation;
-                    projectile.GetComponent<Projectile>().Speed = .5f;
+                    projectile.GetComponent<Projectile>().SetSpeed(.5f);
                     shotCooldown = 40;
                     break;
                 case Attack.SlowAim:
                     projectile.transform.LookAt(target);
-                    projectile.GetComponent<Projectile>().Speed = .5f;
+                    projectile.GetComponent<Projectile>().SetSpeed(.5f);
                     shotCooldown = 300;
                     break;
             }
