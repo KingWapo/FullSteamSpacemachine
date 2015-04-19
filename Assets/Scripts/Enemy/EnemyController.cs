@@ -122,7 +122,7 @@ public class EnemyController : MonoBehaviour {
                 target.gameObject.GetComponent<PlayerVariables>().Kill();
             }
             dead = true;
-            GetComponent<MeshRenderer>().enabled = false;
+            transform.GetChild(0).gameObject.SetActive(false);
             peepee.Play();
             if (Random.Range(0.0f, 100.0f) < EnemySpawn.PowerupSpawnFunc() && byProj)
                 spawnPowerup();
