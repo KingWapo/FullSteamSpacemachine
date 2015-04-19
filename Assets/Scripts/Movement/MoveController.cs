@@ -6,7 +6,7 @@ public class MoveController : MonoBehaviour {
     public float speed = 5;
 
     private float boundX = 7.0f;
-    private float boundY = 4.0f;
+    private float boundY = 3.0f;
 
     private float rotBound = 20.0f;
 
@@ -37,7 +37,7 @@ public class MoveController : MonoBehaviour {
             float rotX = transform.rotation.eulerAngles.x;
             rotX = rotX > 180.0f ? rotX - 360.0f : rotX;
 
-            if (Mathf.Abs(Mathf.Abs(newY) - boundY) > .1f && Mathf.Abs(axisY) > .1f)
+            if (Mathf.Abs(Mathf.Abs(newY) - (boundY)) > .1f && Mathf.Abs(axisY) > .1f)
             {
                 rotX = Mathf.Clamp(rotX - axisY * 2.0f, -rotBound, rotBound);
             }

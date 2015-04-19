@@ -35,6 +35,13 @@ public class EnemyController : MonoBehaviour {
 
     private float spawnChance;
 
+    private float spreadAngle = 1.0f;
+    private int spreadShotLevel = 0;
+
+    private int fireRateLevel = 0;
+
+    private int basicShield = 0;
+
     // Debugging
 
 	// Use this for initialization
@@ -48,6 +55,12 @@ public class EnemyController : MonoBehaviour {
         child.GetComponent<MeshRenderer>().material = mat;
         child.GetComponent<MeshRenderer>().materials[0] = mat;
 	}
+
+    private void DeterminePowerup() {
+        basicShield = Random.Range(0, 2);
+        //fireRateLevel = Random.Range(0, 6);
+        //spreadShotLevel = Random.Range(0, 6);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -123,21 +136,27 @@ public class EnemyController : MonoBehaviour {
 
     public void OnDeath(bool byProj)
     {
-        if (!dead)
-        {
-            if (byProj)
-            {
-                target.gameObject.GetComponent<PlayerVariables>().Kill();
-            }
-            dead = true;
-            transform.GetChild(0).gameObject.SetActive(false);
-            peepee.Play();
-            AudioSource source = GetComponent<AudioSource>();
-            source.Play();
+        if (!dead) {
+            if (basicShield <= 0) {
+                if (byProj) {
+                    target.gameObject.GetComponent<PlayerVariables>().Kill();
+                }
+                dead = true;
+                transform.GetChild(0).gameObject.SetActive(false);
+                peepee.Play();
+                AudioSource source = GetComponent<AudioSource>();
+                source.Play();
 
-            if (Random.Range(0.0f, 100.0f) < EnemySpawn.PowerupSpawnFunc() && byProj)
-                spawnPowerup();
+                if (Random.Range(0.0f, 100.0f) < EnemySpawn.PowerupSpawnFunc() && byProj)
+                    spawnPowerup();
+            }
+        } else {
+            DecrementShield();
         }
+    }
+
+    private void DecrementShield() {
+        basicShield--;
     }
 
     private void pathing()
@@ -240,20 +259,15 @@ public class EnemyController : MonoBehaviour {
     {
         if (shotCooldown <= 0)
         {
-            GameObject projectile = (GameObject)Instantiate(ProjectilePrefab);
-            projectile.transform.position = transform.position;
-            projectile.GetComponent<Projectile>().PlayerShot = false;
             switch (attack)
             {
                 case Attack.QuickStraight:
-                    projectile.transform.rotation = transform.rotation;
-                    projectile.GetComponent<Projectile>().SetSpeed(.5f);
-                    shotCooldown = 40;
+                    QuickProjectiles();
+                    shotCooldown = 40 - 3 * fireRateLevel;
                     break;
                 case Attack.SlowAim:
-                    projectile.transform.LookAt(target);
-                    projectile.GetComponent<Projectile>().SetSpeed(.5f);
-                    shotCooldown = 300;
+                    SlowProjectiles();
+                    shotCooldown = 300 - 3 * fireRateLevel;
                     break;
             }
         }
@@ -261,5 +275,98 @@ public class EnemyController : MonoBehaviour {
         {
             shotCooldown--;
         }
+    }
+
+    private void QuickProjectiles() {
+        GameObject projectile = MakeQuickProjectile();
+
+        switch (spreadShotLevel) {
+            case 5:
+                GameObject proj7 = MakeQuickProjectile();
+                proj7.transform.Rotate(transform.up, spreadAngle);
+                proj7.transform.Rotate(transform.right, -spreadAngle);
+                GameObject proj8 = MakeQuickProjectile();
+                proj8.transform.Rotate(transform.up, -spreadAngle);
+                proj8.transform.Rotate(transform.right, spreadAngle);
+                goto case 4;
+            case 4:
+                GameObject proj5 = MakeQuickProjectile();
+                proj5.transform.Rotate(transform.up, spreadAngle);
+                proj5.transform.Rotate(transform.right, spreadAngle);
+                GameObject proj6 = MakeQuickProjectile();
+                proj6.transform.Rotate(transform.up, -spreadAngle);
+                proj6.transform.Rotate(transform.right, -spreadAngle);
+                goto case 3;
+            case 3:
+                GameObject proj3 = MakeQuickProjectile();
+                proj3.transform.Rotate(transform.right, spreadAngle);
+                GameObject proj4 = MakeQuickProjectile();
+                proj4.transform.Rotate(transform.right, -spreadAngle);
+                goto case 2;
+            case 2:
+                GameObject proj1 = MakeQuickProjectile();
+                proj1.transform.Rotate(transform.up, spreadAngle);
+                GameObject proj2 = MakeQuickProjectile();
+                proj2.transform.Rotate(transform.up, -spreadAngle);
+                break;
+        }
+    }
+
+    private void SlowProjectiles() {
+        GameObject projectile = MakeSlowProjectile();
+
+        switch (spreadShotLevel) {
+            case 5:
+                GameObject proj7 = MakeSlowProjectile();
+                proj7.transform.Rotate(transform.up, spreadAngle);
+                proj7.transform.Rotate(transform.right, -spreadAngle);
+                GameObject proj8 = MakeSlowProjectile();
+                proj8.transform.Rotate(transform.up, -spreadAngle);
+                proj8.transform.Rotate(transform.right, spreadAngle);
+                goto case 4;
+            case 4:
+                GameObject proj5 = MakeSlowProjectile();
+                proj5.transform.Rotate(transform.up, spreadAngle);
+                proj5.transform.Rotate(transform.right, spreadAngle);
+                GameObject proj6 = MakeSlowProjectile();
+                proj6.transform.Rotate(transform.up, -spreadAngle);
+                proj6.transform.Rotate(transform.right, -spreadAngle);
+                goto case 3;
+            case 3:
+                GameObject proj3 = MakeSlowProjectile();
+                proj3.transform.Rotate(transform.right, spreadAngle);
+                GameObject proj4 = MakeSlowProjectile();
+                proj4.transform.Rotate(transform.right, -spreadAngle);
+                goto case 2;
+            case 2:
+                GameObject proj1 = MakeSlowProjectile();
+                proj1.transform.Rotate(transform.up, spreadAngle);
+                GameObject proj2 = MakeSlowProjectile();
+                proj2.transform.Rotate(transform.up, -spreadAngle);
+                break;
+        }
+    }
+
+    private GameObject MakeProjectile() {
+        GameObject projectile = (GameObject)Instantiate(ProjectilePrefab);
+        projectile.transform.position = transform.position;
+        projectile.GetComponent<Projectile>().SetSpeed(.5f);
+        projectile.GetComponent<Projectile>().PlayerShot = false;
+
+        return projectile;
+    }
+
+    private GameObject MakeQuickProjectile() {
+        GameObject projectile = MakeProjectile();
+        projectile.transform.rotation = transform.rotation;
+
+        return projectile;
+    }
+
+    private GameObject MakeSlowProjectile() {
+        GameObject projectile = MakeProjectile();
+        projectile.transform.LookAt(target);
+
+        return projectile;
     }
 }
