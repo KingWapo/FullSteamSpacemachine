@@ -8,6 +8,7 @@ public enum BtnType {
 };
 
 public class Menu : MonoBehaviour {
+    public bool isOculus = false;
 
     public GameObject mainPanel;
     public GameObject playPanel;
@@ -18,11 +19,9 @@ public class Menu : MonoBehaviour {
     public Button aim_controller;
     public Button aim_mouse;
 
-    public Button move_joystick;
     public Button move_controller;
     public Button move_keyboard;
 
-    public Button shoot_button;
     public Button shoot_controller;
     public Button shoot_keyboard;
 
@@ -40,6 +39,11 @@ public class Menu : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (isOculus) {
+            Instantiate(gameManager.oculusController, Camera.main.transform.position, Camera.main.transform.rotation);
+            Camera.main.enabled = false;
+        }
+
         gameManager.moveType = MoveType.None_Move;
         gameManager.aimType = AimType.None_Aim;
         gameManager.shootType = ShootType.None_Shoot;
@@ -47,6 +51,7 @@ public class Menu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        /*
         if (Input.GetKeyDown(KeyCode.Space)) {
             if (GameManager.SetHighScore(Random.Range(0, 500), "TEST")) {
                 print("NEW HIGH SCORE");
@@ -60,6 +65,7 @@ public class Menu : MonoBehaviour {
             PlayerPrefs.DeleteAll();
             Leaderboards();
         }
+        */
 	}
 
     public void PlayGame() {
@@ -148,49 +154,40 @@ public class Menu : MonoBehaviour {
             case 'A':
                 gameManager.aimType = AimType.Oculus_Aim;
                 UpdateAimButtons(BtnType.Selected, BtnType.Unallowed, BtnType.Unallowed);
-                UpdateMoveButtons(BtnType.Allowed, BtnType.Allowed, BtnType.Allowed);
+                UpdateMoveButtons(BtnType.Allowed, BtnType.Allowed);
                 break;
             case 'B':
                 gameManager.aimType = AimType.Controller_Aim;
                 UpdateAimButtons(BtnType.Unallowed, BtnType.Selected, BtnType.Unallowed);
-                UpdateMoveButtons(BtnType.Unallowed, BtnType.Allowed, BtnType.Unallowed);
+                UpdateMoveButtons(BtnType.Allowed, BtnType.Unallowed);
                 goto case 'E';
             case 'C':
                 gameManager.aimType = AimType.Mouse_Aim;
                 UpdateAimButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Selected);
-                UpdateMoveButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Allowed);
+                UpdateMoveButtons(BtnType.Unallowed, BtnType.Allowed);
                 goto case 'F';
-            case 'D':
-                gameManager.moveType = MoveType.Joystick_Move;
-                UpdateMoveButtons(BtnType.Selected, BtnType.Unallowed, BtnType.Unallowed);
-                UpdateShootButtons(BtnType.Allowed, BtnType.Unallowed, BtnType.Unallowed);
-                goto case 'G';
             case 'E':
                 gameManager.moveType = MoveType.Controller_Move;
-                UpdateMoveButtons(BtnType.Unallowed, BtnType.Selected, BtnType.Unallowed);
-                UpdateShootButtons(BtnType.Unallowed, BtnType.Allowed, BtnType.Unallowed);
+                UpdateMoveButtons(BtnType.Selected, BtnType.Unallowed);
+                UpdateShootButtons(BtnType.Allowed, BtnType.Unallowed);
                 goto case 'H';
             case 'F':
                 gameManager.moveType = MoveType.Keyboard_Move;
-                UpdateMoveButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Selected);
-                UpdateShootButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Allowed);
+                UpdateMoveButtons(BtnType.Unallowed, BtnType.Selected);
+                UpdateShootButtons(BtnType.Unallowed, BtnType.Allowed);
                 goto case 'I';
-            case 'G':
-                gameManager.shootType = ShootType.Button_Shoot;
-                UpdateShootButtons(BtnType.Selected, BtnType.Unallowed, BtnType.Unallowed);
-                goto case 'S';
             case 'H':
                 gameManager.shootType = ShootType.Controller_Shoot;
-                UpdateShootButtons(BtnType.Unallowed, BtnType.Selected, BtnType.Unallowed);
+                UpdateShootButtons(BtnType.Selected, BtnType.Unallowed);
                 goto case 'S';
             case 'I':
                 gameManager.shootType = ShootType.Keyboard_Shoot;
-                UpdateShootButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Selected);
+                UpdateShootButtons(BtnType.Unallowed, BtnType.Selected);
                 goto case 'S';
             case 'R':
                 UpdateAimButtons(BtnType.Allowed, BtnType.Allowed, BtnType.Allowed);
-                UpdateMoveButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Unallowed);
-                UpdateShootButtons(BtnType.Unallowed, BtnType.Unallowed, BtnType.Unallowed);
+                UpdateMoveButtons(BtnType.Unallowed, BtnType.Unallowed);
+                UpdateShootButtons(BtnType.Unallowed, BtnType.Unallowed);
                 startGame.interactable = false;
                 break;
             case 'S':
@@ -200,19 +197,23 @@ public class Menu : MonoBehaviour {
     }
 
     private void UpdateAimButtons(BtnType a_oc, BtnType a_co, BtnType a_mo) {
-        UpdateButton(aim_oculus, a_oc);
-        UpdateButton(aim_controller, a_co);
-        UpdateButton(aim_mouse, a_mo);
+        if (isOculus) {
+            UpdateButton(aim_oculus, a_oc);
+            aim_controller.gameObject.SetActive(false);
+            aim_mouse.gameObject.SetActive(false);
+        } else {
+            aim_oculus.gameObject.SetActive(false);
+            UpdateButton(aim_controller, a_co);
+            UpdateButton(aim_mouse, a_mo);
+        }
     }
 
-    private void UpdateMoveButtons(BtnType m_jo, BtnType m_co, BtnType m_ke) {
-        UpdateButton(move_joystick, m_jo);
+    private void UpdateMoveButtons(BtnType m_co, BtnType m_ke) {
         UpdateButton(move_controller, m_co);
         UpdateButton(move_keyboard, m_ke);
     }
 
-    private void UpdateShootButtons(BtnType s_bu, BtnType s_co, BtnType s_ke) {
-        UpdateButton(shoot_button, s_bu);
+    private void UpdateShootButtons(BtnType s_co, BtnType s_ke) {
         UpdateButton(shoot_controller, s_co);
         UpdateButton(shoot_keyboard, s_ke);
     }

@@ -5,14 +5,12 @@ using System.Collections.Generic;
 public enum MoveType {
     Controller_Move,
     Keyboard_Move,
-    Joystick_Move,
     None_Move
 };
 
 public enum ShootType {
     Controller_Shoot,
     Keyboard_Shoot,
-    Button_Shoot,
     None_Shoot
 };
 
@@ -52,9 +50,6 @@ public class GameManager : MonoBehaviour {
             case MoveType.Keyboard_Move:
                 ship.AddComponent<KeyboardMove>();
                 break;
-            case MoveType.Joystick_Move:
-                ship.AddComponent<JoystickMove>();
-                break;
         }
 
         ShootController shooter = null;
@@ -65,9 +60,6 @@ public class GameManager : MonoBehaviour {
                 break;
             case ShootType.Keyboard_Shoot:
                 shooter = ship.AddComponent<KeyboardShoot>();
-                break;
-            case ShootType.Button_Shoot:
-                shooter = ship.AddComponent<ButtonShoot>();
                 break;
         }
 
