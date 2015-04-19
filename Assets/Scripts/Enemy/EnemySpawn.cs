@@ -19,21 +19,19 @@ public class EnemySpawn : MonoBehaviour {
 
         elapsedTime += Time.deltaTime;
 
-	    if (spawnSystem() <= 0)
+        print(spawnValue);
+
+	    if (spawnValue <= 0)
         {
             spawnEnemy();
-            spawnValue = 100;
+            spawnValue = -(elapsedTime - 300) * (elapsedTime + 300) / 900;
+            spawnValue = Mathf.Max(20.0f, spawnValue);
+        }
+        else
+        {
+            spawnValue = PlayerVariables.FullSteamSpacemachine ? (spawnValue - 1) / 4.0f : spawnValue - 1;
         }
 	}
-
-    // Returns a value based off of an equation to
-    // determine if it is time to spawn an enemy or not
-    private float spawnSystem()
-    {
-        spawnValue--;
-
-        return PlayerVariables.FullSteamSpacemachine ? spawnValue / 10.0f : spawnValue;
-    }
 
     private void spawnEnemy()
     {
