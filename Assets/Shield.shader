@@ -19,7 +19,7 @@
       
       void surf (Input IN, inout SurfaceOutput o) {
           o.Albedo = _MainCol.rgb;
-          o.Alpha = 0f;
+          o.Alpha = 0;
           half rim = 1.0 - saturate(dot (normalize(IN.viewDir), o.Normal));
           o.Emission =  _RimColor.rgb * _BaseGlow *(pow (rim, _RimPower));
       }
