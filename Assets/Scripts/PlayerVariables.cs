@@ -280,6 +280,9 @@ public class PlayerVariables : MonoBehaviour {
             case Powerup.Steam:
                 AddSteam();
                 break;
+            case Powerup.Health:
+                AddHealth();
+                break;
         }
         PowerupCount++;
     }
@@ -328,6 +331,27 @@ public class PlayerVariables : MonoBehaviour {
     private void AddInvincibility()
     {
         invTime = 600;
+    }
+
+    private void AddHealth()
+    {
+        float percent = Random.Range(0.0f, 100.0f);
+        if (percent <= 50)
+        {
+            Health += 10;
+        }
+        else if (percent <= 80)
+        {
+            Health += 20;
+        }
+        else if (percent <= 99)
+        {
+            Health += 30;
+        }
+        else
+        {
+            Health += 100;
+        }
     }
 
     private void AddSteam()

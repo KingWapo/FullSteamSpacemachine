@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour {
         
         if (PlayerVariables.FullSteamSpacemachine)
         {
-            speed = origSpeed * 10;
+            speed = origSpeed * 4;
         }
         else
         {

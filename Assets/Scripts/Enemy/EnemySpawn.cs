@@ -24,12 +24,11 @@ public class EnemySpawn : MonoBehaviour {
 	    if (spawnValue <= 0)
         {
             spawnEnemy();
-            spawnValue = (elapsedTime * 0.001f - 300) * (elapsedTime * 0.001f - 300) / 5000.0f;
+            spawnValue = -(elapsedTime - 300) * (elapsedTime + 300) / 900;
             spawnValue = Mathf.Max(20.0f, spawnValue);
         }
         else
         {
-            spawnValue = PlayerVariables.FullSteamSpacemachine ? spawnValue / 10.0f - 1 : spawnValue - 1;
         }
 	}
 
