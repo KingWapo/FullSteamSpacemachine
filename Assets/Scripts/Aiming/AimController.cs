@@ -20,7 +20,7 @@ public class AimController : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        crosshair = (Sprite)Resources.LoadAssetAtPath("Assets/Imports/Crosshair.png", typeof(Sprite));
+        crosshair = (Sprite)Resources.Load("Assets/Imports/Crosshair.png", typeof(Sprite));
         shooter = GetComponent<ShootController>();
     }
 
