@@ -183,6 +183,9 @@ public class PlayerVariables : MonoBehaviour {
         {
             AddPowerup(other.gameObject.GetComponent<PowerupBehavior>().PowerupType);
             Destroy(other.gameObject);
+
+            AudioSource source = GetComponent<AudioSource>();
+            source.Play();
         }
     }
 

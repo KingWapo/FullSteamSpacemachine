@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
     public GameObject playerShip;
     public GameObject projectile;
     public GameObject oculusController;
+    public GameObject ocControllerInstance;
 
     public MoveType moveType = MoveType.Controller_Move;
     public AimType aimType = AimType.Controller_Aim;
@@ -76,10 +77,10 @@ public class GameManager : MonoBehaviour {
                 break;
             case AimType.Oculus_Aim:
                 Camera.main.enabled = false;
-                GameObject temp = (GameObject)Instantiate(oculusController, cameraPos, Quaternion.identity);
+                ocControllerInstance = (GameObject)Instantiate(oculusController, cameraPos, Quaternion.identity);
 
                 OculusAim oculus = ship.AddComponent<OculusAim>();
-                oculus.ocCamera = temp;
+                oculus.ocCamera = ocControllerInstance;
                 break;
         }
 
@@ -88,7 +89,36 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (Application.loadedLevelName == "Gameplay") {
+            print("in gameplay");
+            if (aimType == AimType.Oculus_Aim) {
+                print("is oculus");
+                if (Input.GetKeyDown(KeyCode.Space)) {
+                    print("did space");
+                    Transform centerAnchor = ocControllerInstance.transform.FindChild("TrackingSpace").FindChild("CenterEyeAnchor").GetChild(0);
+
+                    RaycastHit hit;
+                    Ray ray = new Ray(centerAnchor.position, centerAnchor.forward);
+
+                    Physics.Raycast(ray, out hit);
+
+                    if (hit.transform.parent != null) {
+                        print("hit name: " + hit.transform.parent.name);
+                        ManagerManager manager = GameObject.Find("ManagerManager").GetComponent<ManagerManager>();
+                        switch (hit.transform.parent.name) {
+                            case "Retry":
+                                manager.Retry();
+                                break;
+                            case "MainMenu":
+                                manager.MainMenu();
+                                break;
+                        }
+                    } else {
+                        print("no parent: " + hit.collider.name);
+                    }
+                }
+            }
+        }
 	}
 
     // true if is high score
