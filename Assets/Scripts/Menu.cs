@@ -67,7 +67,7 @@ public class Menu : MonoBehaviour {
         Debug.DrawRay(ray.origin, ray.direction * 100, Color.blue, 6, false);
 
         if (isOculus) {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetAxis("360 Trigger Right") > .1f) {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("360 Button A")) {
                 if (ocController != null) {
                     Transform centerAnchor = ocController.transform.FindChild("TrackingSpace").FindChild("CenterEyeAnchor").GetChild(0);
 

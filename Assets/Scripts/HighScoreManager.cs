@@ -15,7 +15,7 @@ public class HighScoreManager : MonoBehaviour {
 	void Update () {
         if (Menu.IsOculus)
         {
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetAxis("360 Trigger Right") > .1f)
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("360 Button A"))
             {
                 Transform centerAnchor = GameObject.FindGameObjectWithTag("Tracking").transform.FindChild("CenterEyeAnchor").GetChild(0);
 
