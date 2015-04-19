@@ -48,7 +48,13 @@ public class PlayerVariables : MonoBehaviour {
     public int FireRateLevel = 1;
         
     // Defensive
-    public int BasicShields = 0;
+	public GameObject BasicShieldObj;
+	private float ShieldPulseTime = 0;
+	public float MaxPulseTime;
+	private bool PulseShield = false;
+	private bool PulseShieldDown = false;
+
+	public int BasicShields = 0;
     private int mirrorTime = 120;
     private int invTime = 600;
 
@@ -65,6 +71,8 @@ public class PlayerVariables : MonoBehaviour {
 	void Start () {
         if (Application.loadedLevelName == "Gameplay") {
             Cursor.visible = false;
+			BasicShieldObj.SetActive(false);
+			BasicShieldObj.GetComponent<Renderer>().material.SetFloat("BaseGlow", 2.0f);
             scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
 
             TextParent = GameObject.FindGameObjectWithTag("FinalScore").gameObject;
@@ -86,6 +94,12 @@ public class PlayerVariables : MonoBehaviour {
 
         if (!dead)
         {
+			if(PulseShield) {
+				ModulateShield();
+			}
+			if(PulseShieldDown) {
+				ModulateShieldDown();
+			}
             if (Debugging)
             {
                 if (Input.GetKeyDown(KeyCode.Alpha1)) AddPowerup(Powerup.LaserStrength);
@@ -98,6 +112,7 @@ public class PlayerVariables : MonoBehaviour {
             }
 
             updateTimedPowerups();
+
 
             if (previousScore < calcScore())
             {
@@ -125,6 +140,26 @@ public class PlayerVariables : MonoBehaviour {
                 }
             }
         }
+	}
+
+	private void ModulateShield() {
+		if(ShieldPulseTime < .5) {
+			ShieldPulseTime += Time.deltaTime;
+			float glow = (Mathf.Sin(ShieldPulseTime*Mathf.PI*2))+2;
+			BasicShieldObj.GetComponent<Renderer>().material.SetFloat("_BaseGlow", glow);
+		} else {
+			PulseShield = false;
+		}
+	}
+
+	private void ModulateShieldDown() {
+		if(ShieldPulseTime < 2) {
+			ShieldPulseTime += Time.deltaTime;
+			float glow = (Mathf.Sin(ShieldPulseTime*Mathf.PI*3+(Mathf.PI/2)))+1f;
+			BasicShieldObj.GetComponent<Renderer>().material.SetFloat("_BaseGlow", glow);
+		} else {
+			PulseShieldDown = false;
+		}
 	}
 
     void OnCollisionEnter(Collision col)
@@ -190,6 +225,12 @@ public class PlayerVariables : MonoBehaviour {
         else if (BasicShields > 0)
         {
             BasicShields--;
+			if(BasicShields == 0) {
+				BasicShieldObj.SetActive(false);
+			}
+			ShieldPulseTime = 0;
+			PulseShield = false;
+			PulseShieldDown = true;
         }
         else
         {
@@ -270,6 +311,13 @@ public class PlayerVariables : MonoBehaviour {
     private void AddBasicShield()
     {
         BasicShields++;
+		if(BasicShields == 1) {
+			BasicShieldObj.SetActive(true);
+		} else {
+			ShieldPulseTime = 0;
+			PulseShieldDown = false;
+			PulseShield = true;
+		}
     }
 
     private void AddMirrorShield()
