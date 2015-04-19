@@ -124,6 +124,9 @@ public class EnemyController : MonoBehaviour {
             dead = true;
             transform.GetChild(0).gameObject.SetActive(false);
             peepee.Play();
+            AudioSource source = GetComponent<AudioSource>();
+            source.Play();
+
             if (Random.Range(0.0f, 100.0f) < EnemySpawn.PowerupSpawnFunc() && byProj)
                 spawnPowerup();
         }
