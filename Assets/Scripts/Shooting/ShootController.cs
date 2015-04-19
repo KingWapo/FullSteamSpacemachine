@@ -58,7 +58,7 @@ public class ShootController : MonoBehaviour {
     public void OculusShoot(Transform trans) {
         ray = new Ray(trans.position, trans.forward);
 
-        print("Ray: " + ray.origin);
+        //print("Ray: " + ray.origin);
 
         Physics.Raycast(ray, out hit, 500.0f);
 

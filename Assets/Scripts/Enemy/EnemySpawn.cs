@@ -19,7 +19,7 @@ public class EnemySpawn : MonoBehaviour {
 
         elapsedTime += Time.deltaTime;
 
-        print(spawnValue);
+        //print(spawnValue);
 
 	    if (spawnValue <= 0)
         {

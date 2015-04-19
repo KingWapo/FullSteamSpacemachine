@@ -9,10 +9,10 @@ public class OculusAim : AimController {
     void Update() {
         if (shooter.IsShooting()) {
             Transform centerAnchor = ocCamera.transform.FindChild("TrackingSpace").FindChild("CenterEyeAnchor").GetChild(0);
-            print(ocCamera);
+            //print(ocCamera);
 
             if (centerAnchor != null) {
-                print(centerAnchor);
+                //print(centerAnchor);
                 shooter.OculusShoot(centerAnchor);
             }
         }
