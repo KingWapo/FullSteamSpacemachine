@@ -63,8 +63,43 @@ public class EnemyController : MonoBehaviour {
 	}
 
     private void DeterminePowerup() {
-        //basicShield = Random.Range(0, 2);
+        float numMinutes = 2.0f;
+        float timeDivider = (60.0f * 2.0f) / 10.0f; // seconds in numMinutes / 10
+        float percentDivider = 1000.0f; // keeps value between 0 and 1
 
+        float x = Mathf.Clamp(EnemySpawn.elapsedTime / timeDivider, 0.0f, 10.0f); // x = 10 at 2 minutes
+
+        float y = Mathf.Pow(x, 3);
+        y /= percentDivider; // value between 0 and 1
+
+        float chance = Random.Range(0.0f, 100.0f);
+        chance *= y;
+
+        if (chance > 87) { // 13%
+            float level = Random.Range(0.0f, 1.0f);
+            if (level < .5f) {
+                fireRateLevel = 2;
+            } else if (level < .8f) {
+                fireRateLevel = 3;
+            } else if (level < .95f) {
+                fireRateLevel = 4;
+            } else {
+                fireRateLevel = 5;
+            }
+        } else if (chance > 74) { // 13%
+            float level = Random.Range(0.0f, 1.0f);
+            if (level < .5f) {
+                spreadShotLevel = 2;
+            } else if (level < .8f) {
+                spreadShotLevel = 3;
+            } else if (level < .95f) {
+                spreadShotLevel = 4;
+            } else {
+                spreadShotLevel = 5;
+            }
+        } else if (chance > 44) { // 30%
+            basicShield = 1;
+        }
 
         if (basicShield == 1) {
             basicShieldObj.SetActive(true);
@@ -73,8 +108,6 @@ public class EnemyController : MonoBehaviour {
             pulseShieldDown = false;
             pulseShield = true;
         }
-        //fireRateLevel = Random.Range(0, 6);
-        //spreadShotLevel = Random.Range(0, 6);
     }
 	
 	// Update is called once per frame

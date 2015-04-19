@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
         if (Application.loadedLevelName == "Gameplay") {
             if (aimType == AimType.Oculus_Aim) {
-                if (Input.GetKeyDown(KeyCode.Space)) {
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetAxis("360 Trigger Right") > .1f) {
                     Transform centerAnchor = ocControllerInstance.transform.FindChild("TrackingSpace").FindChild("CenterEyeAnchor").GetChild(0);
 
                     RaycastHit hit;
@@ -114,6 +114,12 @@ public class GameManager : MonoBehaviour {
                     }
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return)) {
+            print("Reset view");
+
+            OVRManager.display.RecenterPose();
         }
 	}
 

@@ -33,6 +33,7 @@ public class ManagerManager : MonoBehaviour {
     public void MainMenu()
     {
         EndGame.End = false;
+        Destroy(GameObject.Find("GameManager"));
         Application.LoadLevel("MainMenu");
     }
 }
