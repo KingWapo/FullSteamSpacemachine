@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum BtnType {
     Selected, Allowed, Unallowed, Unavailable
@@ -10,7 +11,7 @@ public class Menu : MonoBehaviour {
 
     public GameObject mainPanel;
     public GameObject playPanel;
-    public GameObject controlPanel;
+    public GameObject scorePanel;
     public GameObject creditPanel;
 
     public Button aim_oculus;
@@ -29,6 +30,9 @@ public class Menu : MonoBehaviour {
 
     public GameManager gameManager;
 
+    public Text[] boardNames;
+    public Text[] boardScores;
+
     public Color btn_selected = Color.green;
     public Color btn_unavailable = Color.red;
     public Color btn_allowed = Color.white;
@@ -43,7 +47,19 @@ public class Menu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if (GameManager.SetHighScore(Random.Range(0, 500), "TEST")) {
+                print("NEW HIGH SCORE");
+                Leaderboards();
+            } else {
+                print("no score");
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Backspace)) {
+            PlayerPrefs.DeleteAll();
+            Leaderboards();
+        }
 	}
 
     public void PlayGame() {
@@ -54,9 +70,17 @@ public class Menu : MonoBehaviour {
         ResetControls();
     }
 
-    public void Controls() {
+    public void Leaderboards() {
         mainPanel.SetActive(false);
-        controlPanel.SetActive(true);
+        scorePanel.SetActive(true);
+
+        List<string> names = GameManager.GetScoreNames();
+        List<int> scores = GameManager.GetHighScores();
+
+        for (int i = 0; i < boardNames.Length; i++) {
+            boardNames[i].text = names[i];
+            boardScores[i].text = scores[i] + "";
+        }
     }
 
     public void Credits() {
@@ -71,7 +95,7 @@ public class Menu : MonoBehaviour {
     public void Home() {
         mainPanel.SetActive(true);
         playPanel.SetActive(false);
-        controlPanel.SetActive(false);
+        scorePanel.SetActive(false);
         creditPanel.SetActive(false);
     }
 

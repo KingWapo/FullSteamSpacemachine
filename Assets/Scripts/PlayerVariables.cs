@@ -62,17 +62,19 @@ public class PlayerVariables : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Cursor.visible = false;
-        scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
+        if (Application.loadedLevelName == "Gameplay") {
+            Cursor.visible = false;
+            scoreText = GameObject.FindGameObjectWithTag("Score").GetComponent<Text>();
 
-        TextParent = GameObject.FindGameObjectWithTag("FinalScore").gameObject;
-        ScoreText = TextParent.transform.GetChild(0).gameObject.GetComponent<Text>();
-        KillsText = GameObject.FindGameObjectWithTag("KillsText").GetComponent<Text>();
-        DamageDealtText = GameObject.FindGameObjectWithTag("DamageDealt").GetComponent<Text>();
-        DamageTakenText = GameObject.FindGameObjectWithTag("DamageTaken").GetComponent<Text>();
-        PowerupsCollectedText = GameObject.FindGameObjectWithTag("PowerupsCollected").GetComponent<Text>();
+            TextParent = GameObject.FindGameObjectWithTag("FinalScore").gameObject;
+            ScoreText = TextParent.transform.GetChild(0).gameObject.GetComponent<Text>();
+            KillsText = GameObject.FindGameObjectWithTag("KillsText").GetComponent<Text>();
+            DamageDealtText = GameObject.FindGameObjectWithTag("DamageDealt").GetComponent<Text>();
+            DamageTakenText = GameObject.FindGameObjectWithTag("DamageTaken").GetComponent<Text>();
+            PowerupsCollectedText = GameObject.FindGameObjectWithTag("PowerupsCollected").GetComponent<Text>();
 
-        TextParent.SetActive(false);
+            TextParent.SetActive(false);
+        }
 	}
 	
 	// Update is called once per frame
@@ -100,7 +102,10 @@ public class PlayerVariables : MonoBehaviour {
             {
                 previousScore = (int)Mathf.Lerp(previousScore, calcScore(), Time.deltaTime);
             }
-            scoreText.text = "Score: " + previousScore;
+
+            if (Application.loadedLevelName == "Gameplay") {
+                scoreText.text = "Score: " + previousScore;
+            }
 
             if (Health <= 0)
             {
