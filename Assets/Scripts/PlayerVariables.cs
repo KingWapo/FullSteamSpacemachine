@@ -10,7 +10,8 @@ public enum Powerup
     BasicShield,
     MirrorShield,
     Invincibility,
-    Steam
+    Steam,
+    Health
 }
 
 public class PlayerVariables : MonoBehaviour {
