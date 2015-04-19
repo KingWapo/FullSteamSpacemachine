@@ -3,17 +3,28 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-    public float Speed;
     public bool PlayerShot;
+
+    private float origSpeed;
+    private float speed;
 
 	// Use this for initialization
 	void Start () {
-	
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Translate(Vector3.forward * Speed);
+        
+        if (PlayerVariables.FullSteamSpacemachine)
+        {
+            speed = origSpeed * 10;
+        }
+        else
+        {
+            speed = origSpeed;
+        }
+
+        transform.Translate(Vector3.forward * speed);
 	}
 
     void OnTriggerEnter(Collider other)
@@ -39,5 +50,15 @@ public class Projectile : MonoBehaviour {
         {
             Destroy(this.gameObject);
         }
+        else if (other.tag == "Fullsteam" && !PlayerShot)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    public void SetSpeed(float speedyBoy)
+    {
+        speed = speedyBoy;
+        origSpeed = speed;
     }
 }

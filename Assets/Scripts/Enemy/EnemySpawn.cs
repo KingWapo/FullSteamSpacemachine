@@ -32,7 +32,7 @@ public class EnemySpawn : MonoBehaviour {
     {
         spawnValue--;
 
-        return spawnValue;
+        return PlayerVariables.FullSteamSpacemachine ? spawnValue / 10.0f : spawnValue;
     }
 
     private void spawnEnemy()

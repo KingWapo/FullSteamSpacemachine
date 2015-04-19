@@ -139,7 +139,7 @@ public class ShootController : MonoBehaviour {
         GameObject projectile = (GameObject)Instantiate(projectilePre);
         projectile.transform.position = turret.position;
         projectile.transform.LookAt(target);
-        projectile.GetComponent<Projectile>().Speed = 2f;
+        projectile.GetComponent<Projectile>().SetSpeed(2f);
         projectile.GetComponent<Projectile>().PlayerShot = true;
         float scale = 1 + pVariables.LaserStrengthLevel * 0.3f;
         projectile.transform.localScale = new Vector3(1, 1, 1) * scale;
