@@ -29,6 +29,7 @@ public class EnemySpawn : MonoBehaviour {
         }
         else
         {
+            spawnValue = PlayerVariables.FullSteamSpacemachine ? (spawnValue - 1) / 4.0f : spawnValue - 1;
         }
 	}
 
