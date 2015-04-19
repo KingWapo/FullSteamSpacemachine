@@ -29,10 +29,14 @@ public class Menu : MonoBehaviour {
     public Color btn_unavailable = new Color(.75f, .75f, .75f);
     public Color btn_allowed = Color.white;
 
+    private GameObject ocController;
+
+    private Ray ray;
+
 	// Use this for initialization
 	void Start () {
         if (isOculus) {
-            Instantiate(gameManager.oculusController, Camera.main.transform.position, Camera.main.transform.rotation);
+            ocController = (GameObject)Instantiate(gameManager.oculusController, Camera.main.transform.position, Camera.main.transform.rotation);
             Camera.main.enabled = false;
         }
 
@@ -58,6 +62,51 @@ public class Menu : MonoBehaviour {
             Leaderboards();
         }
         */
+        //print("Test");
+        Debug.DrawRay(ray.origin, ray.direction * 100, Color.blue, 6, false);
+
+        if (isOculus) {
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                if (ocController != null) {
+                    Transform centerAnchor = ocController.transform.FindChild("TrackingSpace").FindChild("CenterEyeAnchor").GetChild(0);
+
+                    RaycastHit hit;
+                    ray = new Ray(centerAnchor.position, centerAnchor.forward);
+
+                    Physics.Raycast(ray, out hit);
+
+                    if (hit.collider != null) {
+                        print("hit name: " + hit.transform.parent.name);
+                        switch (hit.transform.parent.name) {
+                            case "Play":
+                                PlayGame();
+                                break;
+                            case "High Scores":
+                                Leaderboards();
+                                break;
+                            case "Credits":
+                                Credits();
+                                break;
+                            case "Exit":
+                                Exit();
+                                break;
+                            case "Start Game":
+                                StartGame();
+                                break;
+                            case "Main Menu":
+                                Home();
+                                break;
+                            case "Controller":
+                                Controller();
+                                break;
+                            case "MouseKeyboard":
+                                MouseKeyboard();
+                                break;
+                        }
+                    }
+                }
+            }
+        }
 	}
 
     public void PlayGame() {
@@ -101,14 +150,22 @@ public class Menu : MonoBehaviour {
 
     public void Controller() {
         UpdateButton(startGame, BtnType.Allowed);
-        gameManager.aimType = AimType.Controller_Aim;
+        if (isOculus) {
+            gameManager.aimType = AimType.Oculus_Aim;
+        } else {
+            gameManager.aimType = AimType.Controller_Aim;
+        }
         gameManager.moveType = MoveType.Controller_Move;
         gameManager.shootType = ShootType.Controller_Shoot;
     }
 
     public void MouseKeyboard() {
         UpdateButton(startGame, BtnType.Allowed);
-        gameManager.aimType = AimType.Mouse_Aim;
+        if (isOculus) {
+            gameManager.aimType = AimType.Oculus_Aim;
+        } else {
+            gameManager.aimType = AimType.Mouse_Aim;
+        }
         gameManager.moveType = MoveType.Keyboard_Move;
         gameManager.shootType = ShootType.Keyboard_Shoot;
     }
