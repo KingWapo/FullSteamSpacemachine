@@ -15,12 +15,14 @@ public class AimController : MonoBehaviour {
     private float sightSize = 32.0f;
 
     private Sprite crosshair;
+    private GameObject otherCross;
 
     protected ShootController shooter;
 
     // Use this for initialization
     void Start() {
-        crosshair = (Sprite)Resources.Load("Assets/Imports/Crosshair.png", typeof(Sprite));
+        //crosshair = (Sprite)Resources.Load("Assets/Imports/Crosshair.png", typeof(Sprite));
+        crosshair = GameObject.FindGameObjectWithTag("Aim").GetComponent<SpriteRenderer>().sprite;
         shooter = GetComponent<ShootController>();
     }
 
