@@ -18,6 +18,7 @@ public class Menu : MonoBehaviour {
 
     public Button controller360;
     public Button mouseKeyboard;
+    public Button arcade;
 
     public Button startGame;
 
@@ -103,6 +104,8 @@ public class Menu : MonoBehaviour {
                             case "MouseKeyboard":
                                 MouseKeyboard();
                                 break;
+                            case "Arcade":
+                                goto case "MouseKeyboard";
                         }
                     }
                 }
@@ -116,6 +119,7 @@ public class Menu : MonoBehaviour {
 
         UpdateButton(controller360, BtnType.Allowed);
         UpdateButton(mouseKeyboard, BtnType.Allowed);
+        UpdateButton(arcade, BtnType.Allowed);
         UpdateButton(startGame, BtnType.Unavailable);
     }
 
